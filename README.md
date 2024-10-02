@@ -30,7 +30,7 @@ You will also see any lint errors in the console.
 
 ## Tools
 
-* useNaviga
+* useNavigate
 * createBrowserRouter
 * RouterProvider
 * Provider
