@@ -17,7 +17,7 @@ const categories = Object.values(EnumCategory)
 
 type Props = ContactModel & {
   onEdit: (updatedContact: ContactModel) => void
-  onDelete: (id: number) => void
+  onDelete: (id: number) => void // Certifique-se de que o onDelete seja passado
 }
 
 const Contact = ({
@@ -69,7 +69,7 @@ const Contact = ({
   }, [editFields, id, onEdit])
 
   const handleDelete = useCallback(() => {
-    onDelete(id) // Chamar a função de deletar passando o id do contato
+    onDelete(id) // Chama a função de deletar o contato
   }, [id, onDelete])
 
   return (
@@ -119,7 +119,7 @@ const Contact = ({
             />
           </S.EditField>
           <S.EditField>
-            <label>Categoria:</label>
+            <label>category: </label>
             <select
               name="category"
               value={editFields.category}
@@ -165,17 +165,17 @@ const Contact = ({
             </S.Icon>
             {phone}
           </S.Phone>
-          <Button onClick={() => setIsEditing(true)}>Editar</Button>
+          <Button onClick={() => setIsEditing(true)}>Edit</Button>
           <S.CancelRemoveButton onClick={handleDelete}>
-            Remover
+            Remove
           </S.CancelRemoveButton>
         </>
       )}
       {isEditing && (
         <>
-          <SaveButton onClick={handleFormSubmit}>Salvar</SaveButton>
+          <SaveButton onClick={handleFormSubmit}>Save</SaveButton>
           <S.CancelRemoveButton onClick={cancelEdit}>
-            Cancelar
+            Cancel
           </S.CancelRemoveButton>
         </>
       )}

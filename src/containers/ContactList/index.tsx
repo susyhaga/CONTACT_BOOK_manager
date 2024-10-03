@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import {
   useGetContactsQuery,
-  useUpdateContactMutation
+  useUpdateContactMutation,
+  useDeleteContactMutation // Importar a mutação de deletar contato
 } from '../../services/api'
 import Contact from '../../components/Contact'
 import { MainContainer, Title } from '../../styles'
@@ -19,6 +20,7 @@ const ContactList = () => {
   } = useGetContactsQuery()
 
   const [updateContact] = useUpdateContactMutation()
+  const [deleteContact] = useDeleteContactMutation() // Adicionar a mutação de deletar
 
   const { term, criterion } = useSelector((state: RootState) => state.filter)
 
@@ -35,7 +37,7 @@ const ContactList = () => {
   }
 
   const contatosFiltrados = filtrarContatos()
-  const mensagem = `${contatosFiltrados.length} contato(s) encontrado(s)`
+  const mensagem = `${contatosFiltrados.length} contact(s) found`
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -52,8 +54,17 @@ const ContactList = () => {
     refetch()
   }
 
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteContact(id).unwrap() // Chamar a mutação de deletar
+      refetch() // Atualizar a lista após deletar
+    } catch (error) {
+      console.error('Erro ao deletar o contato', error)
+    }
+  }
+
   if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>Erro ao carregar os contatos</div>
+  if (isError) return <div>Error loading contacts</div>
 
   return (
     <MainContainer>
@@ -68,7 +79,7 @@ const ContactList = () => {
               phone={t.phone}
               category={t.category}
               onEdit={handleEdit}
-              onDelete={() => console.log(`Contact ${t.id} was deleted`)}
+              onDelete={() => handleDelete(t.id)} // Passa o id para o handleDelete
             />
           </li>
         ))}
