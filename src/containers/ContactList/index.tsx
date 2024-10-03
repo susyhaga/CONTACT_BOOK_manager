@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import {
   useGetContactsQuery,
-  useDeleteContactMutation,
   useUpdateContactMutation
 } from '../../services/api'
 import Contact from '../../components/Contact'
@@ -19,7 +18,6 @@ const ContactList = () => {
     refetch
   } = useGetContactsQuery()
 
-  const [deleteContact] = useDeleteContactMutation()
   const [updateContact] = useUpdateContactMutation()
 
   const { term, criterion } = useSelector((state: RootState) => state.filter)
@@ -46,14 +44,8 @@ const ContactList = () => {
   }, [isLoading, isError, items])
 
   useEffect(() => {
-    // Refetch a lista de contatos sempre que um novo contato for adicionado
     refetch()
-  }, [items, refetch]) // Adicionando refetch como dependência
-
-  const handleRemove = async (id: number) => {
-    await deleteContact(id).unwrap()
-    refetch()
-  }
+  }, [items, refetch])
 
   const handleEdit = async (updatedContact: ContactModel) => {
     await updateContact({ id: updatedContact.id, updatedContact }).unwrap()
@@ -75,8 +67,8 @@ const ContactList = () => {
               email={t.email}
               phone={t.phone}
               category={t.category}
-              onRemove={() => handleRemove(t.id)}
               onEdit={handleEdit}
+              onDelete={() => console.log(`Contact ${t.id} was deleted`)}
             />
           </li>
         ))}

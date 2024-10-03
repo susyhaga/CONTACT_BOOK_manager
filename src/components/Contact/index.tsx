@@ -16,8 +16,8 @@ export type ContactModel = {
 const categories = Object.values(EnumCategory)
 
 type Props = ContactModel & {
-  onRemove: () => void
   onEdit: (updatedContact: ContactModel) => void
+  onDelete: (id: number) => void
 }
 
 const Contact = ({
@@ -26,8 +26,8 @@ const Contact = ({
   phone,
   id,
   category,
-  onRemove,
-  onEdit
+  onEdit,
+  onDelete
 }: Props) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editFields, setEditFields] = useState({
@@ -50,12 +50,12 @@ const Contact = ({
   ) => {
     const { name, value } = e.target
     setEditFields((prev) => ({ ...prev, [name]: value }))
-    setErrorMessage('') // Limpa a mensagem de erro ao alterar os campos
+    setErrorMessage('')
   }
 
   const cancelEdit = useCallback(() => {
     setIsEditing(false)
-    setEditFields({ name, email, phone, category }) // Retorna aos valores originais
+    setEditFields({ name, email, phone, category })
   }, [name, email, phone, category])
 
   const handleFormSubmit = useCallback(() => {
@@ -64,15 +64,18 @@ const Contact = ({
       return
     }
 
-    onEdit({ ...editFields, id }) // Chama a função de editar passada pelo ContactList
+    onEdit({ ...editFields, id })
     setIsEditing(false)
   }, [editFields, id, onEdit])
+
+  const handleDelete = useCallback(() => {
+    onDelete(id) // Chamar a função de deletar passando o id do contato
+  }, [id, onDelete])
 
   return (
     <S.Card>
       {isEditing ? (
         <>
-          {/* Campos de edição */}
           <S.EditField>
             <label>
               <FaUser aria-hidden="true" />
@@ -134,7 +137,6 @@ const Contact = ({
         </>
       ) : (
         <>
-          {/* Visualização normal */}
           <S.Title>
             {name}
             <S.Tag category={category} parameters="category">
@@ -164,8 +166,8 @@ const Contact = ({
             {phone}
           </S.Phone>
           <Button onClick={() => setIsEditing(true)}>Editar</Button>
-          <S.CancelRemoveButton onClick={onRemove}>
-            Deletar
+          <S.CancelRemoveButton onClick={handleDelete}>
+            Remover
           </S.CancelRemoveButton>
         </>
       )}
@@ -180,4 +182,5 @@ const Contact = ({
     </S.Card>
   )
 }
+
 export default Contact
