@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { ContactModel } from '../../components/Contact'
 import { saveContactsToLocalStorage } from '../../helpers/localStorage'
+import { contactsApi } from '../../services/api'
 
 type ContactsState = {
-  selectedCategory: null
+  selectedCategory: string | null // Updated type for clarity
   items: ContactModel[]
   loading: boolean
-  error: string | null // Avaliar se realmente é necessário
+  error: string | null
   searchQuery: string
 }
 
@@ -14,52 +15,46 @@ const initialState: ContactsState = {
   selectedCategory: null,
   items: [],
   loading: false,
-  error: null, // Avaliar uso
+  error: null,
   searchQuery: ''
 }
 
-// Função assíncrona para buscar contatos da API
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchContacts',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await fetch('http://localhost:4000/contacts')
-      if (!response.ok) {
-        throw new Error('Erro ao carregar contatos.')
-      }
-      return await response.json()
-    } catch (error) {
-      // Melhorar o manuseio de erros
-      return rejectWithValue(
-        error instanceof Error ? error.message : 'Erro desconhecido.'
-      )
+// Async function to fetch contacts from the API
+export const fetchContacts = createAsyncThunk<
+  ContactModel[],
+  void,
+  { rejectValue: string }
+>('contacts/fetchContacts', async (_, { rejectWithValue }) => {
+  try {
+    const response = await fetch('http://localhost:4000/contacts')
+    if (!response.ok) {
+      throw new Error('Failed to load contacts.')
     }
+    return await response.json()
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Unknown error.'
+    )
   }
-)
+})
 
-// Validação de e-mail e telefone
-const validateEmail = (email: string) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
-}
-
-const validatePhone = (phone: string) => {
-  const phoneRegex = /^\d{10,11}$/
-  return phoneRegex.test(phone)
-}
+// Email and phone validation functions
+const validateEmail = (email: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+const validatePhone = (phone: string) => /^\d{10,11}$/.test(phone)
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    setSelectedCategory(state, action: PayloadAction<null>) {
+    setSelectedCategory(state, action: PayloadAction<string | null>) {
       state.selectedCategory = action.payload
     },
     remove: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter(
         (contact) => contact.id !== action.payload
       )
-      saveContactsToLocalStorage(state.items)
+      saveContactsToLocalStorage(state.items) // Isso está correto
     },
     edit: (state, action: PayloadAction<ContactModel>) => {
       const indexOfContact = state.items.findIndex(
@@ -70,13 +65,13 @@ const contactsSlice = createSlice({
           ...state.items[indexOfContact],
           ...action.payload
         }
-        saveContactsToLocalStorage(state.items)
+        saveContactsToLocalStorage(state.items) // Isso está correto
       }
     },
     register: (state, action: PayloadAction<Omit<ContactModel, 'id'>>) => {
       const { name, email, phone } = action.payload
 
-      // Verifica se o contato já existe
+      // Check if the contact already exists
       const contactExists = state.items.some(
         (contact) =>
           contact.name.toLowerCase() === name.toLowerCase() ||
@@ -85,36 +80,36 @@ const contactsSlice = createSlice({
       )
 
       if (contactExists) {
-        console.error('Contato já existe:', name)
-        // Retornar um erro pode ser uma opção aqui, dependendo de como você deseja lidar com isso
-        return // Saia da função se o contato já existir
+        console.error('Contact already exists:', name)
+        return
       }
 
-      // Validação de e-mail e telefone
+      // Validate email and phone
       if (!validateEmail(email)) {
-        console.error('E-mail inválido:', email)
-        return // Saia da função se o e-mail for inválido
+        console.error('Invalid email:', email)
+        return
       }
 
       if (!validatePhone(phone)) {
-        console.error('Telefone inválido:', phone)
-        return // Saia da função se o telefone for inválido
+        console.error('Invalid phone:', phone)
+        return
       }
 
-      // Gera um novo ID único
-      const newId =
-        state.items.length > 0
-          ? Math.max(...state.items.map((c) => c.id)) + 1
-          : 1
-
-      // Cria o novo contato
+      // Create the new contact
       const newContact: ContactModel = {
         ...action.payload,
-        id: newId
+        id:
+          state.items.length > 0
+            ? Math.max(...state.items.map((c) => c.id)) + 1
+            : 1
       }
-      // Adiciona o novo contato ao estado
+
+      // Add the new contact to the state
       state.items.push(newContact)
-      saveContactsToLocalStorage(state.items) // Salva no localStorage
+      saveContactsToLocalStorage(state.items) // Save to localStorage
+    },
+    loadContacts: (state, action: PayloadAction<ContactModel[]>) => {
+      state.items = action.payload
     },
     search: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload
@@ -124,7 +119,7 @@ const contactsSlice = createSlice({
     builder
       .addCase(fetchContacts.pending, (state) => {
         state.loading = true
-        state.error = null // Reseta o erro ao iniciar a busca
+        state.error = null
       })
       .addCase(
         fetchContacts.fulfilled,
@@ -135,11 +130,24 @@ const contactsSlice = createSlice({
       )
       .addCase(fetchContacts.rejected, (state, action) => {
         state.loading = false
-        state.error = action.payload as string // Mensagem de erro da API
+        state.error = action.payload as string
       })
+      .addMatcher(
+        contactsApi.endpoints.addContact.matchFulfilled,
+        (state, action) => {
+          state.items.push(action.payload)
+        }
+      )
   }
 })
 
-export const { setSelectedCategory, search, edit, remove, register } =
-  contactsSlice.actions
+export const {
+  setSelectedCategory,
+  search,
+  edit,
+  remove,
+  register,
+  loadContacts
+} = contactsSlice.actions
+
 export default contactsSlice.reducer

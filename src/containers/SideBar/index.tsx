@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as S from './styles'
 import FilterCard from '../../components/FilterCard'
-import { RootReducer } from '../../store'
+import { RootState } from '../../store'
 import * as enums from '../../enums/Contacts/enumsContacts'
 import { changeFilter } from '../../store/slices/filters'
 import { useGetContactsQuery } from '../../services/api'
@@ -13,7 +13,7 @@ type Props = {
 
 const SideBar = ({ showFilters }: Props) => {
   const dispatch = useDispatch()
-  const { criterion, term } = useSelector((state: RootReducer) => state.filter)
+  const { criterion, term } = useSelector((state: RootState) => state.filter)
   const { data: contacts = [] } = useGetContactsQuery()
 
   const handleChangeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {

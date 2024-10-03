@@ -5,12 +5,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // Páginas
 import Home from './pages/Home'
-import Cadastro from './pages/RegisterContact'
+import Register from './pages/RegisterContact'
 
 // Roteamento de páginas
 const rotas = createBrowserRouter([
   { path: '/', element: <Home /> },
-  { path: '/criar_tarefa', element: <Cadastro /> }
+  { path: '/new_contact', element: <Register /> }
 ])
 
 function App() {

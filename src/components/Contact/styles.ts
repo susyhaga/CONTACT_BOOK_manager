@@ -127,3 +127,7 @@ export const Icon = styled.strong`
   margin-right: 8px;
   margin-top: 8px;
 `
+export const ErrorMessage = styled.p`
+  color: red;
+  margin: 10px 0;
+`

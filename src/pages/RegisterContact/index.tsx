@@ -1,10 +1,14 @@
 import SideBar from '../../containers/SideBar'
-import Form from '../../containers/Form'
+import FormContact from '../../containers/Form'
 
-const Register = () => (
-  <>
-    <SideBar showFilters={false} />
-    <Form />
-  </>
-)
+// Se o componente não receber props, não há necessidade de tipagem
+const Register = () => {
+  return (
+    <>
+      <SideBar showFilters={false} />
+      <FormContact />
+    </>
+  )
+}
+
 export default Register

@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useGetContactsQuery, useAddContactMutation } from '../../services/api'
+import {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+  useUpdateContactMutation
+} from '../../services/api'
 import Contact from '../../components/Contact'
 import { MainContainer, Title } from '../../styles'
-import { RootReducer } from '../../store'
+import { RootState } from '../../store'
 import { ContactModel } from '../../components/Contact'
 import { saveContactsToLocalStorage } from '../../helpers/localStorage'
-import * as enums from '../../enums/Contacts/enumsContacts'
 
 const ContactList = () => {
-  const { data: items = [], isLoading, isError } = useGetContactsQuery()
-  const { term, criterion } = useSelector((state: RootReducer) => state.filter)
-  const [addContact] = useAddContactMutation()
+  const {
+    data: items = [],
+    isLoading,
+    isError,
+    refetch
+  } = useGetContactsQuery()
 
-  const categories = Object.values(enums.Category)
+  const [deleteContact] = useDeleteContactMutation()
+  const [updateContact] = useUpdateContactMutation()
 
-  const [newContact, setNewContact] = useState<ContactModel>({
-    id: 0, // Defina o id conforme necessário
-    name: '',
-    email: '',
-    phone: '',
-    category: categories[0] // Defina uma categoria padrão aqui
-  })
+  const { term, criterion } = useSelector((state: RootState) => state.filter)
 
   const filtrarContatos = () => {
     return items.filter((item: ContactModel) => {
@@ -44,20 +45,19 @@ const ContactList = () => {
     }
   }, [isLoading, isError, items])
 
-  const handleAddContact = async () => {
-    try {
-      await addContact(newContact).unwrap()
-      // Limpar o formulário ou redefinir o estado conforme necessário
-      setNewContact({
-        id: 0,
-        name: '',
-        email: '',
-        phone: '',
-        category: categories[0]
-      }) // Resetando o novo contato
-    } catch (error) {
-      console.error('Erro ao adicionar contato:', error)
-    }
+  useEffect(() => {
+    // Refetch a lista de contatos sempre que um novo contato for adicionado
+    refetch()
+  }, [items, refetch]) // Adicionando refetch como dependência
+
+  const handleRemove = async (id: number) => {
+    await deleteContact(id).unwrap()
+    refetch()
+  }
+
+  const handleEdit = async (updatedContact: ContactModel) => {
+    await updateContact({ id: updatedContact.id, updatedContact }).unwrap()
+    refetch()
   }
 
   if (isLoading) return <div>Loading...</div>
@@ -66,44 +66,6 @@ const ContactList = () => {
   return (
     <MainContainer>
       <Title as={'p'}>{mensagem}</Title>
-      <input
-        type="text"
-        placeholder="Nome"
-        value={newContact.name}
-        onChange={(e) => setNewContact({ ...newContact, name: e.target.value })}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={newContact.email}
-        onChange={(e) =>
-          setNewContact({ ...newContact, email: e.target.value })
-        }
-      />
-      <input
-        type="tel"
-        placeholder="Telefone"
-        value={newContact.phone}
-        onChange={(e) =>
-          setNewContact({ ...newContact, phone: e.target.value })
-        }
-      />
-      <select
-        value={newContact.category}
-        onChange={(e) =>
-          setNewContact({
-            ...newContact,
-            category: e.target.value as enums.Category
-          })
-        }
-      >
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
-      <button onClick={handleAddContact}>Adicionar Contato</button>
       <ul>
         {contatosFiltrados.map((t: ContactModel) => (
           <li key={t.id}>
@@ -113,6 +75,8 @@ const ContactList = () => {
               email={t.email}
               phone={t.phone}
               category={t.category}
+              onRemove={() => handleRemove(t.id)}
+              onEdit={handleEdit}
             />
           </li>
         ))}

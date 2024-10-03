@@ -1,8 +1,6 @@
 import { FaPhone, FaEnvelope, FaUser } from 'react-icons/fa'
-import { useState, ChangeEvent } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState, ChangeEvent, useCallback, useEffect } from 'react'
 import * as S from './styles'
-import { remove, edit } from '../../store/slices/contact'
 import { Button, SaveButton } from '../../styles'
 import * as enums from '../../enums/Contacts/enumsContacts'
 import { Category as EnumCategory } from '../../enums/Contacts/enumsContacts'
@@ -17,10 +15,20 @@ export type ContactModel = {
 
 const categories = Object.values(EnumCategory)
 
-type Props = ContactModel
+type Props = ContactModel & {
+  onRemove: () => void
+  onEdit: (updatedContact: ContactModel) => void
+}
 
-const Contact = ({ name, email, phone, id, category }: Props) => {
-  const dispatch = useDispatch()
+const Contact = ({
+  name,
+  email,
+  phone,
+  id,
+  category,
+  onRemove,
+  onEdit
+}: Props) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editFields, setEditFields] = useState({
     name,
@@ -28,34 +36,43 @@ const Contact = ({ name, email, phone, id, category }: Props) => {
     phone,
     category
   })
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const cancelEdit = () => {
-    setIsEditing(false)
-    setEditFields({ name, email, phone, category })
-  }
-
-  const handleSave = () => {
-    // Validação simples antes de salvar
-    if (!editFields.name || !editFields.email || !editFields.phone) {
-      alert('Por favor, preencha todos os campos.')
-      return
+  useEffect(() => {
+    if (isEditing) {
+      setEditFields({ name, email, phone, category })
+      setErrorMessage('')
     }
-
-    dispatch(edit({ id, ...editFields }))
-    setIsEditing(false)
-  }
+  }, [isEditing, name, email, phone, category])
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target
     setEditFields((prev) => ({ ...prev, [name]: value }))
+    setErrorMessage('') // Limpa a mensagem de erro ao alterar os campos
   }
+
+  const cancelEdit = useCallback(() => {
+    setIsEditing(false)
+    setEditFields({ name, email, phone, category }) // Retorna aos valores originais
+  }, [name, email, phone, category])
+
+  const handleFormSubmit = useCallback(() => {
+    if (!editFields.name || !editFields.email || !editFields.phone) {
+      setErrorMessage('Por favor, preencha todos os campos obrigatórios.')
+      return
+    }
+
+    onEdit({ ...editFields, id }) // Chama a função de editar passada pelo ContactList
+    setIsEditing(false)
+  }, [editFields, id, onEdit])
 
   return (
     <S.Card>
       {isEditing ? (
         <>
+          {/* Campos de edição */}
           <S.EditField>
             <label>
               <FaUser aria-hidden="true" />
@@ -67,6 +84,7 @@ const Contact = ({ name, email, phone, id, category }: Props) => {
               onChange={handleChange}
               placeholder="Nome"
               aria-label="Nome do contato"
+              required
             />
           </S.EditField>
           <S.EditField>
@@ -80,6 +98,7 @@ const Contact = ({ name, email, phone, id, category }: Props) => {
               onChange={handleChange}
               placeholder="Email"
               aria-label="Email do contato"
+              required
             />
           </S.EditField>
           <S.EditField>
@@ -93,6 +112,7 @@ const Contact = ({ name, email, phone, id, category }: Props) => {
               onChange={handleChange}
               placeholder="Telefone"
               aria-label="Telefone do contato"
+              required
             />
           </S.EditField>
           <S.EditField>
@@ -110,9 +130,11 @@ const Contact = ({ name, email, phone, id, category }: Props) => {
               ))}
             </select>
           </S.EditField>
+          {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         </>
       ) : (
         <>
+          {/* Visualização normal */}
           <S.Title>
             {name}
             <S.Tag category={category} parameters="category">
@@ -141,20 +163,21 @@ const Contact = ({ name, email, phone, id, category }: Props) => {
             </S.Icon>
             {phone}
           </S.Phone>
-          <S.CancelRemoveButton onClick={() => dispatch(remove(id))}>
+          <Button onClick={() => setIsEditing(true)}>Editar</Button>
+          <S.CancelRemoveButton onClick={onRemove}>
             Deletar
           </S.CancelRemoveButton>
-          <Button onClick={() => setIsEditing(true)}>Editar</Button>
         </>
       )}
-      {isEditing && <SaveButton onClick={handleSave}>Salvar</SaveButton>}
       {isEditing && (
-        <S.CancelRemoveButton onClick={cancelEdit}>
-          Cancelar
-        </S.CancelRemoveButton>
+        <>
+          <SaveButton onClick={handleFormSubmit}>Salvar</SaveButton>
+          <S.CancelRemoveButton onClick={cancelEdit}>
+            Cancelar
+          </S.CancelRemoveButton>
+        </>
       )}
     </S.Card>
   )
 }
-
 export default Contact

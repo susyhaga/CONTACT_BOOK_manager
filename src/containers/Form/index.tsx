@@ -1,90 +1,137 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState, ChangeEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Field } from '../../styles'
-import { SaveButton, MainContainer, Title } from '../../styles'
-import { Form, Opcoes, Opcao } from './styles'
+import { Field, SaveButton, MainContainer, Title } from '../../styles'
+import { Form, Options, Option } from './styles'
 import * as enums from '../../enums/Contacts/enumsContacts'
+import { ContactModel } from '../../components/Contact'
+import { useAddContactMutation } from '../../services/api'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { register } from '../../store/slices/contact'
 
-const Form_Contact = () => {
-  // Dispatch para atualizar a store
+const ContactForm = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [addContact, { isLoading, isError }] = useAddContactMutation()
+  const [contactData, setContactData] = useState<Omit<ContactModel, 'id'>>({
+    name: '',
+    email: '',
+    phone: '',
+    category: enums.Category.ALL
+  })
 
-  // States e modificadores de nome, email e telefone
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
-  // State e modificadores para salvar os valores de enums.Category
-  const [category, setCategory] = useState(enums.Category.ALL)
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target
+    setContactData((prev) => ({ ...prev, [name]: value }))
+  }
 
-  // Função para ADICIONAR um novo contato
-  const cadastrarTarefa = (e: FormEvent) => {
-    // Impede o comportamento padrão do formulário
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    // Usar o dispatch para passar a action creator (cadastrar do slices / contatos)
-    dispatch(
-      register({
-        name,
-        email,
-        phone,
-        category
-      })
-    )
+    setErrorMessage(null)
+    setSuccessMessage(null)
 
-    // Limpar os campos após adicionar o contato
-    setName('')
-    setEmail('')
-    setPhone('')
-    setCategory(enums.Category.ALL) // Redefinindo para a categoria padrão
+    // Validação de e-mail e telefone
+    if (validateEmail(contactData.email) && validatePhone(contactData.phone)) {
+      try {
+        await addContact(contactData).unwrap()
+        dispatch(register(contactData))
+
+        resetForm()
+        setSuccessMessage('Contact registered successfully!')
+
+        // Redireciona para a lista de contatos após o registro
+        navigate('/')
+      } catch (err) {
+        const error = err as FetchBaseQueryError
+        setErrorMessage('Failed to add contact.')
+        console.error('Error details:', error) // Para debugar
+      }
+    } else {
+      setErrorMessage('Invalid contact data.')
+    }
+  }
+
+  const resetForm = () => {
+    setContactData({
+      name: '',
+      email: '',
+      phone: '',
+      category: enums.Category.ALL
+    })
+  }
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  const validatePhone = (phone: string) => {
+    const phoneRegex = /^\d{10,11}$/
+    return phoneRegex.test(phone)
   }
 
   return (
     <MainContainer>
       <Title>New Contact</Title>
-      <Form onSubmit={cadastrarTarefa}>
+      <Form onSubmit={handleSubmit}>
         <Field
-          value={name} // Campo = componente estilizado no estilo global
-          onChange={(e) => setName(e.target.value)} // Modificador do estado nome
+          name="name"
+          value={contactData.name}
+          onChange={handleChange}
           type="text"
           placeholder="Name"
+          required
         />
-
         <Field
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} // Modificador do estado email
+          name="email"
+          value={contactData.email}
+          onChange={handleChange}
           type="email"
           placeholder="Email"
+          required
         />
-
         <Field
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)} // Modificador do estado telefone
+          name="phone"
+          value={contactData.phone}
+          onChange={handleChange}
           type="tel"
           placeholder="Phone"
+          required
         />
-
-        <Opcoes>
+        <Options>
           <p>Category</p>
-          {Object.values(enums.Category).map((category) => (
-            <Opcao key={category}>
-              <input
-                value={category}
-                name="prioridade"
-                type="radio"
-                onChange={(e) => setCategory(e.target.value as enums.Category)} // Evento modificador
-                id={category}
-                defaultChecked={category === enums.Category.ALL}
-              />
-              <label htmlFor={category}>{category}</label>
-            </Opcao>
-          ))}
-        </Opcoes>
-        <SaveButton type="submit">Register</SaveButton>
+          {Object.values(enums.Category)
+            .filter((categoryValue) => categoryValue !== enums.Category.ALL) // Excluir 'ALL'
+            .map((categoryValue) => (
+              <Option key={categoryValue}>
+                <input
+                  value={categoryValue}
+                  name="category"
+                  type="radio"
+                  onChange={handleChange}
+                  id={categoryValue}
+                  checked={contactData.category === categoryValue}
+                />
+                <label htmlFor={categoryValue}>{categoryValue}</label>
+              </Option>
+            ))}
+        </Options>
+        <SaveButton type="submit" disabled={isLoading}>
+          Register
+        </SaveButton>
       </Form>
+      {isLoading && <p>Loading...</p>}
+      {isError && <p style={{ color: 'red' }}>An error occurred.</p>}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
     </MainContainer>
   )
 }
 
-export default Form_Contact
+export default ContactForm

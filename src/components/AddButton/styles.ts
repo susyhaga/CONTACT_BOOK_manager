@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom' //botaoAdicionar
 import variaveis from '../../styles/varColors'
 
-export const AddButton = styled(Link)`
+export const ButtonAdd = styled(Link)`
   height: 50px;
   width: 150px;
   background: ${variaveis.green};

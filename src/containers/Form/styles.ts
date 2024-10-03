@@ -14,7 +14,7 @@ export const Form = styled.form`
   }
 `
 //estilo da DIV +  estilo  dos LABELS
-export const Opcoes = styled.div`
+export const Options = styled.div`
   margin-bottom: 16px;
   p {
     margin-bottom: 6px;
@@ -29,7 +29,7 @@ export const Opcoes = styled.div`
   }
 `
 //estilo da DIV que tem a iteracao de enums.Prioridade nos inputs c/ valor prioriedade (prop tipada de Tarefas*/}
-export const Opcao = styled.div`
+export const Option = styled.div`
   margin-bottom: 16px;
   display: inline;
   text-transform: capitalize; //as 1.ª  letras começa como MAIÚSCULAS

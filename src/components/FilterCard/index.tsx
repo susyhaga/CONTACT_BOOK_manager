@@ -1,7 +1,7 @@
 import React from 'react'
 import * as S from './styles'
 import { useSelector } from 'react-redux'
-import { RootReducer } from '../../store'
+import { RootState } from '../../store'
 import * as enums from '../../enums/Contacts/enumsContacts'
 
 export type Props = {
@@ -20,7 +20,7 @@ const FilterCard: React.FC<Props> = ({
   onClick
 }) => {
   // useSelector para acessar o estado global
-  const { filter, contacts } = useSelector((state: RootReducer) => state)
+  const { filter, contacts } = useSelector((state: RootState) => state)
 
   const countContacts = (category: enums.Category) => {
     console.log('Contando contatos para a categoria:', category)
