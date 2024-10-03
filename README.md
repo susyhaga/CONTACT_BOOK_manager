@@ -1,7 +1,7 @@
 # Getting Started with Create React App
 
 ## Description
-This is a contact book application project where users can easily manage their contact list. Features include adding new contacts, editing existing information, saving or canceling edits, and removing unwanted contacts. To simulate a realistic experience, I created a fake API for managing phone contacts, and all changes are stored in Local Storage, ensuring that the contact list is dynamically updated based on user interaction
+This is a contact book application project where users can easily manage their contact list. Features include adding new contacts, editing existing information, saving or canceling edits, and removing unwanted contacts. To simulate a realistic experience, I created a fake API for managing phone contacts, and all changes are stored in Local Storage, ensuring that the contact list is dynamically updated based on user interaction. "The responsive aspect is missing, and the layout also needs improvement."
 
 ## Features
 * Add new contacts
