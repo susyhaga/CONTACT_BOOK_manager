@@ -1,56 +1,78 @@
 import styled, { createGlobalStyle } from 'styled-components'
 import varColors from './varColors'
 
-//1 estilo global //exportar em App.tsx
 const GlobalStyle = createGlobalStyle`
   *{
     margin:0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Roboto, sans-serif; //exportar font em index.html
+    font-family: Roboto, sans-serif;
     list-style: none;
     overflow: hidden;
   }
 `
-//2) criando estilo dos containers //exportar em App.tsx
+
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: 224px, auto;
   display: flex;
   gap: 16px;
   padding: 16px;
 `
-//3)export para :  pages/Cadastro + containers/ListaDeTarefas
-export const MainContainer = styled.main`
-  padding: 0 40px;
-  flex-grow: 1; /* Faz com que o conteúdo principal ocupe o espaço restante */
-  gap: 16px;
-  padding: 16px;
-  background-color: #fff;
-  border-radius: 8px;
-  height: 100vh; //altura atingida gera um scroll
-  overflow-y: scroll;
-`
-//3 export para: pages/Cadastro + containers/ListaDeTarefas
-export const Title = styled.h2`
-  display: block;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  font-size: 18px;
-  font-weight: bold;
+
+export const Alphabet = styled.div`
+  position: sticky;
+  top: 10px;
+  height: 100vh;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f4f4f4;
+  padding: 28px;
+  z-index: 10;
 `
 
-// 4) Estilo dos INPUTs" usar nos containers em BarraLateral e Formulario
+export const MainContainer = styled.main`
+  flex-grow: 1;
+  background-color: #fff;
+  border-radius: 8px;
+  height: 100vh;
+  overflow-y: auto;
+`
 export const Field = styled.input`
   padding: 8px;
+  margin-bottom: 24px;
+  margin-top: 4px;
   background-color: #ffff;
-  border-radius: 8px;
+  border-radius: 4px;
   font-weight: bold;
   color: #666666;
-  width: 100%; /* Preenche 100% da largura disponível */
+  width: 100%;
   border: 1px solid #666666;
 `
-//5) botoes
+export const ContactBook = styled.div`
+  position: sticky;
+  top: 0;
+  background-image: url('/icons/form.jpg');
+  z-index: 1;
+  margin: 0;
+  margin-right: 0;
+  padding: 60px;
+  width: calc(110% - 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    font-size: 62px;
+    font-weight: bold;
+    color: black;
+    text-align: left;
+    margin-left: 20px;
+  }
+
+  img {
+    width: 80px;
+  }
+`
 export const Button = styled.button`
   font-weight: bold;
   font-size: 12px;
@@ -66,5 +88,6 @@ export const Button = styled.button`
 export const SaveButton = styled(Button)`
   // Botao = estilo do Botao de Tarefas
   background-color: ${varColors.green};
+  color: black;
 `
 export default GlobalStyle //App.tsx

@@ -1,8 +1,24 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Field, SaveButton, MainContainer, Title } from '../../styles'
-import { Form, Options, Option } from './styles'
+import { Field, SaveButton } from '../../styles' // Adicione ReturnButton aqui
+import {
+  MainContainerForm,
+  ContainerForm,
+  Form,
+  Options,
+  ReturnButton,
+  Option,
+  TitleForm,
+  TextInputs,
+  ParentContainer,
+  Asterisk,
+  IconContainer,
+  Icon,
+  PhoneDiv,
+  InputContainer,
+  InputContainerPhone
+} from './styles'
 import * as enums from '../../enums/Contacts/enumsContacts'
 import { ContactModel } from '../../components/Contact'
 import { useAddContactMutation } from '../../services/api'
@@ -16,6 +32,8 @@ const ContactForm = () => {
   const [contactData, setContactData] = useState<Omit<ContactModel, 'id'>>({
     name: '',
     email: '',
+    ddi: '',
+    ddd: '',
     phone: '',
     category: enums.Category.ALL
   })
@@ -30,17 +48,41 @@ const ContactForm = () => {
     setContactData((prev) => ({ ...prev, [name]: value }))
   }
 
+  const validatePhone = (ddd: string, phone: string): boolean => {
+    const dddRegex = /^\d{2}$/ // DDD deve ter 2 dígitos
+    const phoneRegex = /^\d{8,9}$/ // Telefone deve ter 8 ou 9 dígitos
+    return dddRegex.test(ddd) && phoneRegex.test(phone)
+  }
+
+  const resetForm = () => {
+    setContactData({
+      name: '',
+      email: '',
+      ddi: '',
+      ddd: '',
+      phone: '',
+      category: enums.Category.ALL
+    })
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     setErrorMessage(null)
     setSuccessMessage(null)
 
-    // Validação de e-mail e telefone
-    if (validateEmail(contactData.email) && validatePhone(contactData.phone)) {
+    if (validatePhone(contactData.ddd, contactData.phone)) {
       try {
-        await addContact(contactData).unwrap()
-        dispatch(register(contactData))
+        const sanitizedContactData = {
+          name: contactData.name ?? '',
+          email: contactData.email ?? '',
+          ddi: contactData.ddi ?? '',
+          ddd: contactData.ddd ?? '',
+          phone: contactData.phone ?? '',
+          category: contactData.category ?? enums.Category.ALL
+        }
+        await addContact(sanitizedContactData).unwrap()
+        dispatch(register(sanitizedContactData))
 
         resetForm()
         setSuccessMessage('Contact registered successfully!')
@@ -50,87 +92,125 @@ const ContactForm = () => {
       } catch (err) {
         const error = err as FetchBaseQueryError
         setErrorMessage('Failed to add contact.')
-        console.error('Error details:', error) // Para debugar
+        console.error('Error details:', error)
       }
     } else {
-      setErrorMessage('Invalid contact data.')
+      setErrorMessage('Invalid phone number.')
     }
   }
 
-  const resetForm = () => {
-    setContactData({
-      name: '',
-      email: '',
-      phone: '',
-      category: enums.Category.ALL
-    })
-  }
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(email)
-  }
-
-  const validatePhone = (phone: string) => {
-    const phoneRegex = /^\d{10,11}$/
-    return phoneRegex.test(phone)
+  const handleReturn = () => {
+    navigate('/') // Redireciona para a página inicial
   }
 
   return (
-    <MainContainer>
-      <Title>New Contact</Title>
-      <Form onSubmit={handleSubmit}>
-        <Field
-          name="name"
-          value={contactData.name}
-          onChange={handleChange}
-          type="text"
-          placeholder="Name"
-          required
-        />
-        <Field
-          name="email"
-          value={contactData.email}
-          onChange={handleChange}
-          type="email"
-          placeholder="Email"
-          required
-        />
-        <Field
-          name="phone"
-          value={contactData.phone}
-          onChange={handleChange}
-          type="tel"
-          placeholder="Phone"
-          required
-        />
-        <Options>
-          <p>Category</p>
-          {Object.values(enums.Category)
-            .filter((categoryValue) => categoryValue !== enums.Category.ALL) // Excluir 'ALL'
-            .map((categoryValue) => (
-              <Option key={categoryValue}>
+    <MainContainerForm>
+      <ParentContainer>
+        <ReturnButton type="button" onClick={handleReturn}>
+          <img src="/icons/back.png" alt="return icon" />
+          Return
+        </ReturnButton>
+        <ContainerForm>
+          <IconContainer>
+            <Icon src="/icons/add_black.png" alt="Add contact icon" />
+          </IconContainer>
+          <TitleForm>Create New Contact</TitleForm>
+          <Form onSubmit={handleSubmit}>
+            <TextInputs>
+              <label>
+                Name<Asterisk>*</Asterisk>
+              </label>
+            </TextInputs>
+            <Field
+              name="name"
+              value={contactData.name}
+              onChange={handleChange}
+              type="text"
+              placeholder="contact Name"
+              required
+            />
+            <TextInputs>Email</TextInputs>
+            <Field
+              name="email"
+              value={contactData.email}
+              onChange={handleChange}
+              type="email"
+              placeholder="example@example.com"
+            />
+
+            <PhoneDiv>
+              <TextInputs>
+                <label>
+                  Phone<Asterisk>*</Asterisk>
+                </label>
+              </TextInputs>
+              <InputContainer>
+                <label htmlFor="ddi">country</label>
                 <input
-                  value={categoryValue}
-                  name="category"
-                  type="radio"
+                  name="ddi"
+                  id="ddi"
+                  value={contactData.ddi}
                   onChange={handleChange}
-                  id={categoryValue}
-                  checked={contactData.category === categoryValue}
+                  type="phone"
+                  placeholder="optional"
+                  required
                 />
-                <label htmlFor={categoryValue}>{categoryValue}</label>
-              </Option>
-            ))}
-        </Options>
-        <SaveButton type="submit" disabled={isLoading}>
-          Register
-        </SaveButton>
-      </Form>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p style={{ color: 'red' }}>An error occurred.</p>}
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-    </MainContainer>
+              </InputContainer>
+              <InputContainer>
+                <label htmlFor="ddd">area</label>
+                <input
+                  name="ddd"
+                  id="ddd"
+                  value={contactData.ddd}
+                  onChange={handleChange}
+                  type="tel"
+                  placeholder="00"
+                  required
+                />
+              </InputContainer>
+              <InputContainerPhone>
+                <label htmlFor="phone">phone</label>
+                <input
+                  name="phone"
+                  id="phone"
+                  value={contactData.phone}
+                  onChange={handleChange}
+                  type="phone"
+                  placeholder="00000-0000"
+                  required
+                />
+              </InputContainerPhone>
+            </PhoneDiv>
+
+            <Options>
+              <p>Category: </p>
+              {Object.values(enums.Category)
+                .filter((categoryValue) => categoryValue !== enums.Category.ALL) // Excluir 'ALL'
+                .map((categoryValue) => (
+                  <Option key={categoryValue}>
+                    <input
+                      value={categoryValue}
+                      name="category"
+                      type="radio"
+                      onChange={handleChange}
+                      id={categoryValue}
+                      checked={contactData.category === categoryValue}
+                    />
+                    <label htmlFor={categoryValue}>{categoryValue}</label>
+                  </Option>
+                ))}
+            </Options>
+            <SaveButton type="submit" disabled={isLoading}>
+              Register
+            </SaveButton>
+          </Form>
+          {isLoading && <p>Loading...</p>}
+          {isError && <p style={{ color: 'red' }}>An error occurred.</p>}
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+        </ContainerForm>
+      </ParentContainer>
+    </MainContainerForm>
   )
 }
 

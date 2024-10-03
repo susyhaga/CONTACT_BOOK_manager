@@ -20,7 +20,8 @@ export const contactsApi = createApi({
         }
       })
     }),
-    deleteContact: builder.mutation<void, number>({
+    deleteContact: builder.mutation<void, string>({
+      // Mudar para string
       query: (id) => ({
         url: `/contacts/${id}`,
         method: 'DELETE'
@@ -28,7 +29,7 @@ export const contactsApi = createApi({
     }),
     updateContact: builder.mutation<
       ContactModel,
-      { id: number; updatedContact: Partial<ContactModel> }
+      { id: string; updatedContact: Partial<ContactModel> } // Mudar para string
     >({
       query: ({ id, updatedContact }) => ({
         url: `/contacts/${id}`,

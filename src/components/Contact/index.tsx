@@ -6,23 +6,26 @@ import * as enums from '../../enums/Contacts/enumsContacts'
 import { Category as EnumCategory } from '../../enums/Contacts/enumsContacts'
 
 export type ContactModel = {
-  id: number
+  id: string
   name: string
-  email: string
+  email?: string
+  ddi?: string
+  ddd: string
   phone: string
   category: enums.Category
 }
-
 const categories = Object.values(EnumCategory)
 
 type Props = ContactModel & {
   onEdit: (updatedContact: ContactModel) => void
-  onDelete: (id: number) => void // Certifique-se de que o onDelete seja passado
+  onDelete: (id: string) => void // Certifique-se de que o onDelete seja passado
 }
 
 const Contact = ({
   name,
   email,
+  ddi,
+  ddd,
   phone,
   id,
   category,
@@ -33,6 +36,8 @@ const Contact = ({
   const [editFields, setEditFields] = useState({
     name,
     email,
+    ddi,
+    ddd,
     phone,
     category
   })
@@ -40,10 +45,10 @@ const Contact = ({
 
   useEffect(() => {
     if (isEditing) {
-      setEditFields({ name, email, phone, category })
+      setEditFields({ name, email, phone, ddi, ddd, category })
       setErrorMessage('')
     }
-  }, [isEditing, name, email, phone, category])
+  }, [isEditing, name, email, ddi, ddd, phone, category])
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -55,12 +60,12 @@ const Contact = ({
 
   const cancelEdit = useCallback(() => {
     setIsEditing(false)
-    setEditFields({ name, email, phone, category })
-  }, [name, email, phone, category])
+    setEditFields({ name, email, phone, ddi, ddd, category })
+  }, [name, email, phone, ddi, ddd, category])
 
   const handleFormSubmit = useCallback(() => {
     if (!editFields.name || !editFields.email || !editFields.phone) {
-      setErrorMessage('Por favor, preencha todos os campos obrigatórios.')
+      setErrorMessage('Please fill in all required fields')
       return
     }
 
@@ -69,7 +74,7 @@ const Contact = ({
   }, [editFields, id, onEdit])
 
   const handleDelete = useCallback(() => {
-    onDelete(id) // Chama a função de deletar o contato
+    return onDelete(id)
   }, [id, onDelete])
 
   return (
@@ -85,8 +90,8 @@ const Contact = ({
               name="name"
               value={editFields.name}
               onChange={handleChange}
-              placeholder="Nome"
-              aria-label="Nome do contato"
+              placeholder="Name"
+              aria-label="Contact name"
               required
             />
           </S.EditField>
@@ -100,7 +105,7 @@ const Contact = ({
               value={editFields.email}
               onChange={handleChange}
               placeholder="Email"
-              aria-label="Email do contato"
+              aria-label="Contact Email"
               required
             />
           </S.EditField>
@@ -113,8 +118,8 @@ const Contact = ({
               name="phone"
               value={editFields.phone}
               onChange={handleChange}
-              placeholder="Telefone"
-              aria-label="Telefone do contato"
+              placeholder="Phone"
+              aria-label="Phone"
               required
             />
           </S.EditField>
@@ -124,7 +129,7 @@ const Contact = ({
               name="category"
               value={editFields.category}
               onChange={handleChange}
-              aria-label="Categoria do contato"
+              aria-label="category contact"
             >
               {categories.map((category) => (
                 <option key={category} value={category}>

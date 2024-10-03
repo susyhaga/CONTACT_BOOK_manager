@@ -1,11 +1,20 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { FaSearch } from 'react-icons/fa' // Importando o ícone de busca
+
 import * as S from './styles'
 import FilterCard from '../../components/FilterCard'
 import { RootState } from '../../store'
 import * as enums from '../../enums/Contacts/enumsContacts'
 import { changeFilter } from '../../store/slices/filters'
 import { useGetContactsQuery } from '../../services/api'
+
+// Definindo o tipo para o contato
+type Contact = {
+  id: number // ou string, dependendo do seu caso
+  name: string
+  category: enums.Category
+}
 
 type Props = {
   showFilters: boolean
@@ -14,7 +23,9 @@ type Props = {
 const SideBar = ({ showFilters }: Props) => {
   const dispatch = useDispatch()
   const { criterion, term } = useSelector((state: RootState) => state.filter)
-  const { data: contacts = [] } = useGetContactsQuery()
+  const { data: contacts = [] } = useGetContactsQuery() as unknown as {
+    data: Contact[]
+  } // Tipando a resposta da query
 
   const handleChangeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(
@@ -35,16 +46,16 @@ const SideBar = ({ showFilters }: Props) => {
   const categoriesCount = {
     all: contacts.length,
     family: contacts.filter(
-      (contact) => contact.category === enums.Category.FAMILY
+      (contact: Contact) => contact.category === enums.Category.FAMILY
     ).length,
     friend: contacts.filter(
-      (contact) => contact.category === enums.Category.FRIEND
+      (contact: Contact) => contact.category === enums.Category.FRIEND
     ).length,
     business: contacts.filter(
-      (contact) => contact.category === enums.Category.BUSINESS
+      (contact: Contact) => contact.category === enums.Category.BUSINESS
     ).length,
     others: contacts.filter(
-      (contact) => contact.category === enums.Category.OTHERS
+      (contact: Contact) => contact.category === enums.Category.OTHERS
     ).length
   }
 
@@ -77,16 +88,19 @@ const SideBar = ({ showFilters }: Props) => {
       <S.Title>Search Contacts</S.Title>
       <S.Actions>
         <S.FilterSection>
-          <input
-            type="text"
-            placeholder="Search contacts"
-            value={term}
-            onChange={handleSearchChange}
-          />
+          <S.SearchContainer>
+            <S.SearchIcon as={FaSearch} />
+            <S.SearchInput
+              type="text"
+              placeholder="contact name"
+              value={term}
+              onChange={handleSearchChange}
+            />
+          </S.SearchContainer>
         </S.FilterSection>
 
         <S.FilterSection>
-          <label htmlFor="criterion">Category: </label>
+          <label htmlFor="criterion">category: </label>
           <select
             id="criterion"
             value={criterion}
@@ -114,8 +128,8 @@ const SideBar = ({ showFilters }: Props) => {
           <FilterCard
             key={key}
             name={name}
-            count={count} // Passando a contagem correta
-            isActive={criterion === key} // Verifica se o key corresponde ao critério
+            count={count}
+            isActive={criterion === key}
             category={key as enums.Category}
             onClick={() => handleFilterCardClick(key as enums.Category)}
           />

@@ -9,7 +9,6 @@ type TagProps = {
   category: enums.Category // ou o tipo que você estiver usando
 }
 
-// Função que retorna a cor de fundo com base nos parâmetros
 function returnColor(props: TagProps): string {
   if (props.parameters === 'category') {
     if (props.category === enums.Category.FAMILY) return varColors.family
@@ -17,10 +16,9 @@ function returnColor(props: TagProps): string {
     if (props.category === enums.Category.OTHERS) return varColors.others
     if (props.category === enums.Category.BUSINESS) return varColors.work
   }
-  return '#b33939' // Valor padrão
+  return '#b33939'
 }
 
-// Card principal
 export const Card = styled.div`
   background-color: #fcfcfc;
   top: 10px;
@@ -28,9 +26,9 @@ export const Card = styled.div`
   gap: 0px;
   border: 1px 0px 0px 0px;
   border-radius: 16px;
-  opacity: 0.9; // Ajuste de opacidade para tornar o cartão visível
+  opacity: 0.9;
   margin-bottom: 16px;
-  margin-top: 16px; // Adicionado
+  margin-top: 16px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 16px;
 
@@ -41,8 +39,6 @@ export const Card = styled.div`
     margin-right: 8px;
   }
 `
-
-// Título do cartão
 export const Title = styled.h3`
   font-size: 18px;
   font-weight: bold;
@@ -120,6 +116,8 @@ export const EditField = styled.div`
     margin-top: 4px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    border: 2px dotted rgba(0, 0, 0, 1);
+    padding: 16px;
   }
 `
 

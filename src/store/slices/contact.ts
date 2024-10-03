@@ -4,7 +4,7 @@ import { saveContactsToLocalStorage } from '../../helpers/localStorage'
 import { contactsApi } from '../../services/api'
 
 type ContactsState = {
-  selectedCategory: string | null // Updated type for clarity
+  selectedCategory: string | null
   items: ContactModel[]
   loading: boolean
   error: string | null
@@ -19,7 +19,6 @@ const initialState: ContactsState = {
   searchQuery: ''
 }
 
-// Async function to fetch contacts from the API
 export const fetchContacts = createAsyncThunk<
   ContactModel[],
   void,
@@ -38,7 +37,6 @@ export const fetchContacts = createAsyncThunk<
   }
 })
 
-// Email and phone validation functions
 const validateEmail = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 const validatePhone = (phone: string) => /^\d{10,11}$/.test(phone)
@@ -50,11 +48,11 @@ const contactsSlice = createSlice({
     setSelectedCategory(state, action: PayloadAction<string | null>) {
       state.selectedCategory = action.payload
     },
-    remove: (state, action: PayloadAction<number>) => {
+    remove: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(
         (contact) => contact.id !== action.payload
       )
-      saveContactsToLocalStorage(state.items) // Isso está correto
+      saveContactsToLocalStorage(state.items)
     },
     edit: (state, action: PayloadAction<ContactModel>) => {
       const indexOfContact = state.items.findIndex(
@@ -65,17 +63,16 @@ const contactsSlice = createSlice({
           ...state.items[indexOfContact],
           ...action.payload
         }
-        saveContactsToLocalStorage(state.items) // Isso está correto
+        saveContactsToLocalStorage(state.items)
       }
     },
     register: (state, action: PayloadAction<Omit<ContactModel, 'id'>>) => {
       const { name, email, phone } = action.payload
 
-      // Check if the contact already exists
       const contactExists = state.items.some(
         (contact) =>
           contact.name.toLowerCase() === name.toLowerCase() ||
-          contact.email.toLowerCase() === email.toLowerCase() ||
+          contact.email?.toLowerCase() === email?.toLowerCase() ||
           contact.phone === phone
       )
 
@@ -84,8 +81,7 @@ const contactsSlice = createSlice({
         return
       }
 
-      // Validate email and phone
-      if (!validateEmail(email)) {
+      if (!email || !validateEmail(email)) {
         console.error('Invalid email:', email)
         return
       }
@@ -95,18 +91,16 @@ const contactsSlice = createSlice({
         return
       }
 
-      // Create the new contact
       const newContact: ContactModel = {
         ...action.payload,
         id:
           state.items.length > 0
-            ? Math.max(...state.items.map((c) => c.id)) + 1
-            : 1
+            ? (Math.max(...state.items.map((c) => Number(c.id))) + 1).toString()
+            : '1'
       }
 
-      // Add the new contact to the state
       state.items.push(newContact)
-      saveContactsToLocalStorage(state.items) // Save to localStorage
+      saveContactsToLocalStorage(state.items)
     },
     loadContacts: (state, action: PayloadAction<ContactModel[]>) => {
       state.items = action.payload

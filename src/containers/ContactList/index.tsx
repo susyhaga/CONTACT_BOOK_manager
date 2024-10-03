@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux'
 import {
   useGetContactsQuery,
   useUpdateContactMutation,
-  useDeleteContactMutation // Importar a mutação de deletar contato
+  useDeleteContactMutation
 } from '../../services/api'
 import Contact from '../../components/Contact'
-import { MainContainer, Title } from '../../styles'
+import { MainContainer, ContactBook } from '../../styles'
 import { RootState } from '../../store'
 import { ContactModel } from '../../components/Contact'
 import { saveContactsToLocalStorage } from '../../helpers/localStorage'
+import { Alphabet, ContainerList } from './styles'
 
 const ContactList = () => {
   const {
@@ -20,7 +21,7 @@ const ContactList = () => {
   } = useGetContactsQuery()
 
   const [updateContact] = useUpdateContactMutation()
-  const [deleteContact] = useDeleteContactMutation() // Adicionar a mutação de deletar
+  const [deleteContact] = useDeleteContactMutation()
 
   const { term, criterion } = useSelector((state: RootState) => state.filter)
 
@@ -37,7 +38,6 @@ const ContactList = () => {
   }
 
   const contatosFiltrados = filtrarContatos()
-  const mensagem = `${contatosFiltrados.length} contact(s) found`
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -50,14 +50,17 @@ const ContactList = () => {
   }, [items, refetch])
 
   const handleEdit = async (updatedContact: ContactModel) => {
-    await updateContact({ id: updatedContact.id, updatedContact }).unwrap()
+    await updateContact({
+      id: updatedContact.id.toString(),
+      updatedContact
+    }).unwrap()
     refetch()
   }
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     try {
-      await deleteContact(id).unwrap() // Chamar a mutação de deletar
-      refetch() // Atualizar a lista após deletar
+      await deleteContact(id).unwrap()
+      refetch()
     } catch (error) {
       console.error('Erro ao deletar o contato', error)
     }
@@ -67,24 +70,37 @@ const ContactList = () => {
   if (isError) return <div>Error loading contacts</div>
 
   return (
-    <MainContainer>
-      <Title as={'p'}>{mensagem}</Title>
-      <ul>
-        {contatosFiltrados.map((t: ContactModel) => (
-          <li key={t.id}>
-            <Contact
-              id={t.id}
-              name={t.name}
-              email={t.email}
-              phone={t.phone}
-              category={t.category}
-              onEdit={handleEdit}
-              onDelete={() => handleDelete(t.id)} // Passa o id para o handleDelete
-            />
-          </li>
-        ))}
-      </ul>
-    </MainContainer>
+    <ContainerList>
+      <MainContainer>
+        <ContactBook>
+          <img src="./icons/add_black.png" />
+          <h1>Contacts Book</h1>
+        </ContactBook>
+        <ul>
+          {contatosFiltrados.map((t: ContactModel) => (
+            <li key={t.id}>
+              <Contact
+                id={t.id}
+                name={t.name}
+                email={t.email}
+                phone={t.phone}
+                ddd={t.ddd}
+                category={t.category}
+                onEdit={handleEdit}
+                onDelete={() => handleDelete(t.id.toString())}
+              />
+            </li>
+          ))}
+        </ul>
+      </MainContainer>
+      <Alphabet>
+        <ul>
+          {Array.from(Array(26)).map((_, index) => (
+            <li key={index}>{String.fromCharCode(65 + index)}</li> // A-Z
+          ))}
+        </ul>
+      </Alphabet>
+    </ContainerList>
   )
 }
 

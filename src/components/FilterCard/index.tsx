@@ -12,18 +12,11 @@ export type Props = {
   onClick: () => void
 }
 
-const FilterCard: React.FC<Props> = ({
-  name,
-  isActive,
-  category,
-  count,
-  onClick
-}) => {
+const FilterCard = ({ name, isActive, category, count, onClick }: Props) => {
   // useSelector para acessar o estado global
   const { filter, contacts } = useSelector((state: RootState) => state)
 
   const countContacts = (category: enums.Category) => {
-    console.log('Contando contatos para a categoria:', category)
     return contacts.items.filter((item) => {
       const matchesCategory = category ? item.category === category : true
       const matchesTerm = item.name
@@ -35,8 +28,8 @@ const FilterCard: React.FC<Props> = ({
 
   return (
     <S.Card active={isActive} onClick={onClick}>
+      <S.Label>{name}</S.Label> {/* Categoria primeiro */}
       <S.Counter>{count || countContacts(category)}</S.Counter>
-      <S.Label>{name}</S.Label>
     </S.Card>
   )
 }
