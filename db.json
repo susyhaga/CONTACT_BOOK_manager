@@ -1,63 +1,6 @@
 {
   "contacts": [
     {
-      "name": "haga",
-      "email": "susy@gmail.com",
-      "phone": "11114849480",
-      "category": "family",
-      "id": "1"
-    },
-    {
-      "id": "2",
-      "name": "Conrad Steuber DVM",
-      "email": "Johnathan.Schumm@yahoo.com",
-      "phone": "88 47 47220-2998",
-      "photo": "https://randomuser.me/api/portraits/men/2.jpg",
-      "category": "family",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "3",
-      "name": "Mildred Kertzmann",
-      "email": "Libbie_Hahn80@yahoo.com",
-      "phone": "84 75 26434-4689",
-      "photo": "https://randomuser.me/api/portraits/women/3.jpg",
-      "category": "work",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "4",
-      "name": "Georgia VonRueden",
-      "email": "Cali.Moore75@hotmail.com",
-      "phone": "81 65 33963-7417",
-      "photo": "https://randomuser.me/api/portraits/men/4.jpg",
-      "category": "others",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "5",
-      "name": "Dora Bogan",
-      "email": "Lorena_Orn26@yahoo.com",
-      "phone": "51 61 46090-6072",
-      "photo": "https://randomuser.me/api/portraits/women/5.jpg",
-      "category": "others",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "6",
-      "name": "Luz Heidenreich",
-      "email": "Haven.Kshlerin14@hotmail.com",
-      "phone": "90 01 71838-6104",
-      "photo": "https://randomuser.me/api/portraits/men/6.jpg",
-      "category": "friends",
-      "classification": null,
-      "priority": null
-    },
-    {
       "id": "7",
       "name": "Miriam Douglas",
       "email": "Estella_Durgan@yahoo.com",
@@ -98,24 +41,11 @@
       "priority": null
     },
     {
-      "id": "11",
-      "name": "Rufus Kilback",
-      "email": "Layla_Hyatt@yahoo.com",
-      "phone": "12 05 25108-5973",
-      "photo": "https://randomuser.me/api/portraits/women/11.jpg",
-      "category": "family",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "12",
       "name": "Lindsay Corkery-Becker",
       "email": "Antonietta.Brown@hotmail.com",
       "phone": "37 15 02725-5402",
-      "photo": "https://randomuser.me/api/portraits/men/12.jpg",
       "category": "family",
-      "classification": null,
-      "priority": null
+      "id": "12"
     },
     {
       "id": "13",
@@ -288,14 +218,11 @@
       "priority": null
     },
     {
-      "id": "30",
       "name": "Jared Bergnaum",
       "email": "Sydnie99@gmail.com",
       "phone": "34 70 22105-1820",
-      "photo": "https://randomuser.me/api/portraits/men/30.jpg",
       "category": "family",
-      "classification": null,
-      "priority": null
+      "id": "30"
     },
     {
       "id": "31",
@@ -8013,48 +7940,6 @@
       "category": "others"
     },
     {
-      "id": 0,
-      "name": "sds",
-      "email": "sasasa",
-      "phone": "dassadasd",
-      "category": "friends"
-    },
-    {
-      "id": 0,
-      "name": "dsdsa",
-      "email": "",
-      "phone": "",
-      "category": "family"
-    },
-    {
-      "id": 0,
-      "name": "",
-      "email": "",
-      "phone": "",
-      "category": "work"
-    },
-    {
-      "id": 0,
-      "name": "",
-      "email": "",
-      "phone": "",
-      "category": "work"
-    },
-    {
-      "id": 0,
-      "name": "sds",
-      "email": "rgerg",
-      "phone": "rgregerg",
-      "category": "family"
-    },
-    {
-      "id": 0,
-      "name": "",
-      "email": "",
-      "phone": "",
-      "category": "work"
-    },
-    {
       "id": "c8e0",
       "name": "New Service Contact",
       "category": "others"
@@ -8073,6 +7958,273 @@
       "id": "9d71",
       "name": "New Service Contact",
       "category": "others"
+    },
+    {
+      "id": "bdd4",
+      "name": "New Service Contact",
+      "category": "others"
+    },
+    {
+      "id": "1d9c",
+      "name": "New Service Contact",
+      "category": "others"
+    },
+    {
+      "id": "a568",
+      "name": "New Service Contact",
+      "category": "others"
+    },
+    {
+      "id": "6ea2",
+      "name": "New Service Contact",
+      "category": "others"
+    },
+    {
+      "id": "f656",
+      "name": "Eliza Haga",
+      "email": "eliza@gmail.com",
+      "phone": "1177899076",
+      "category": "family"
+    },
+    {
+      "id": "f44a",
+      "name": "eliza",
+      "email": "eliza@gmail.com",
+      "phone": "11997638399",
+      "category": "family"
+    },
+    {
+      "id": "92ea",
+      "name": "Zuleide Matos",
+      "email": "zuzu@gmail.com",
+      "phone": "1188658605",
+      "category": "work"
+    },
+    {
+      "id": "4e9d",
+      "name": "Mara Marta",
+      "email": "martamara@hotmail.com",
+      "phone": "55118796759",
+      "category": "work"
+    },
+    {
+      "id": "4f50",
+      "name": "Silva Maria",
+      "email": "silvana@gmail.com",
+      "phone": "5511897890",
+      "category": "others"
+    },
+    {
+      "id": "47c8",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "55118798767",
+      "category": "others"
+    },
+    {
+      "id": "0910",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "f795",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "232e",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "dddf",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "4028",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "30f8",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "5ff1",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "050a",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "7b1e",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "9dfe",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "1eb7",
+      "name": "George",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "42b9",
+      "name": "George Bafim",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "4453",
+      "name": "George Bafim",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "d4ed",
+      "name": "George Bafim",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "others"
+    },
+    {
+      "id": "b72c",
+      "name": "George Bafim",
+      "email": "georgefofo@gmail.com",
+      "phone": "5511898977",
+      "category": "family"
+    },
+    {
+      "id": "781d",
+      "name": "George Bafim",
+      "email": "georgebafim@hotmail.com",
+      "phone": "55118988887",
+      "category": "family"
+    },
+    {
+      "id": "c123",
+      "name": "George Bafim",
+      "email": "italoitalo@gmail.com",
+      "phone": "55119998768",
+      "category": "family"
+    },
+    {
+      "id": "b953",
+      "name": "",
+      "email": "",
+      "phone": "",
+      "category": "work"
+    },
+    {
+      "id": "e94e",
+      "name": "",
+      "email": "",
+      "phone": "",
+      "category": "work"
+    },
+    {
+      "id": "afe5",
+      "name": "",
+      "email": "",
+      "phone": "",
+      "category": "work"
+    },
+    {
+      "id": "fcd1",
+      "name": "",
+      "email": "",
+      "phone": "",
+      "category": "work"
+    },
+    {
+      "id": "7f94",
+      "name": "",
+      "email": "",
+      "phone": "",
+      "category": "work"
+    },
+    {
+      "id": "5f2d",
+      "name": "",
+      "email": "",
+      "phone": "",
+      "category": "work"
+    },
+    {
+      "id": "1231",
+      "name": "Carmen Lucia",
+      "email": "italocucu@hotmail.com",
+      "phone": "1111898976",
+      "category": "family"
+    },
+    {
+      "id": "65a7",
+      "name": "miriam haga",
+      "email": "miriamhaga@gmail.com",
+      "phone": "8899776722",
+      "category": "family"
+    },
+    {
+      "id": "66de",
+      "name": "emanuel",
+      "email": "emanuelcricri@gmail.om",
+      "phone": "55117879900",
+      "category": "work"
+    },
+    {
+      "id": "35c1",
+      "name": "Socorro Cansada",
+      "email": "soorrocansada@gmail.com",
+      "phone": "55118989778",
+      "category": "work"
+    },
+    {
+      "id": "b242",
+      "name": "Lulu zizi",
+      "email": "luzinha@hotmail.com",
+      "phone": "11556767890",
+      "category": "work"
+    },
+    {
+      "id": "4633",
+      "name": "Susy Haga",
+      "email": "susy@gmail.com",
+      "ddi": "55",
+      "ddd": "11",
+      "phone": "22222222",
+      "category": "family"
     }
   ]
 }

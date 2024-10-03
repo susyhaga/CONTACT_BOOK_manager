@@ -1,13 +1,12 @@
 # Getting Started with Create React App
 
 ## Description
-This is a contact book application project where users can easily manage their contact list. Features include adding new contacts, editing existing information, saving or canceling edits, and removing unwanted contacts. To simulate a realistic experience, I created a fake API for managing phone contacts, and all changes are stored in Local Storage, ensuring that the contact list is dynamically updated based on user interaction. "The responsive aspect is missing, and the layout also needs improvement."
+This TO-DO-LIST manager project enables users to effortlessly "add", "remove", "edit", "classify" and "create new tasks". User modifications are permanently saved in the browser's cache, eliminating the need for an API or database. As a single-page application (SPA), it allows users to seamlessly navigate to a separate route for task registration, leading to significantly faster page loading times.
 
 ## Features
-* Add new contacts
-* Remove existing contacts
-* Edit contacts information
-* Created a fake contacts api
+* Add new tasks
+* Remove existing tasks
+* Edit tasks
 * Storage in the browser's cache
 
 ## Usage Instructions
@@ -21,7 +20,6 @@ This is a contact book application project where users can easily manage their c
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-Open [http://localhost:4000](http://localhost:4000/contacts)) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
@@ -32,7 +30,7 @@ You will also see any lint errors in the console.
 
 ## Tools
 
-* useNavigate
+* useNaviga
 * createBrowserRouter
 * RouterProvider
 * Provider
