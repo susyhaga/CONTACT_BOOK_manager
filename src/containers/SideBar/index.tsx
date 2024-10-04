@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FaSearch } from 'react-icons/fa' // Importando o ícone de busca
+import { FaSearch } from 'react-icons/fa';
 
 import * as S from './styles'
 import FilterCard from '../../components/FilterCard'

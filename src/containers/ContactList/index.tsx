@@ -11,6 +11,8 @@ import { RootState } from '../../store'
 import { ContactModel } from '../../components/Contact'
 import { saveContactsToLocalStorage } from '../../helpers/localStorage'
 import { Alphabet, ContainerList } from './styles'
+import addContactIcon from '../../icons/addcontact_white.png'
+
 
 const ContactList = () => {
   const {
@@ -47,7 +49,7 @@ const ContactList = () => {
 
   useEffect(() => {
     refetch()
-  }, [items, refetch])
+  }, [refetch])
 
   const handleEdit = async (updatedContact: ContactModel) => {
     await updateContact({
@@ -73,7 +75,7 @@ const ContactList = () => {
     <ContainerList>
       <MainContainer>
         <ContactBook>
-          <img src="./icons/add_black.png" />
+          <img src={addContactIcon} alt="Add Contact" />
           <h1>Contacts Book</h1>
         </ContactBook>
         <ul>
