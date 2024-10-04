@@ -8,7 +8,12 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: Roboto, sans-serif;
     list-style: none;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    @media (max-width: 480px) {
+      overflow-y: scroll;
+
+  }
   }
 `
 
@@ -20,6 +25,7 @@ export const Container = styled.div`
   @media (max-width: 480px) {
     flex-direction: column;
     padding: 8px;
+    overflow-y:scroll;
   }
 `
 
@@ -45,11 +51,13 @@ export const MainContainer = styled.main`
   flex-grow: 1;
   background-color: #fff;
   border-radius: 8px;
-  height: 100vh;
-  overflow-y: auto;
+  height: auto; /* Altera de 100vh para auto para permitir rolagem */
+  max-height: 90vh; /* Define uma altura máxima para rolagem */
+  overflow-y: auto; /* Permite rolagem vertical */
 
   @media (max-width: 480px) {
     height: auto;
+    max-height: 80vh; /* Aumenta a altura máxima para dispositivos menores */
   }
 `
 

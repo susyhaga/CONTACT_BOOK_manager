@@ -3,7 +3,7 @@ import varColors from '../../styles/varColors';
 
 export const MainContainerForm = styled.main`
   display: block;
-  padding: 0 40px;
+  padding: 0 10px;
   gap: 16px;
   background-image: url('/icons/form.jpg');
   background-size: cover;
@@ -12,6 +12,7 @@ export const MainContainerForm = styled.main`
   width: 100vw;
   height: 100vh;
   position: relative;
+  margin: 0 auto;
 
   @media (max-width: 480px) {
     padding: 0 20px;
@@ -35,8 +36,8 @@ export const ParentContainer = styled.div`
 
 export const ContainerForm = styled.main`
   display: block;
-  padding: 0 40px;
   gap: 16px;
+  padding: 40px;
   background-color: #fff;
   border-radius: 8px;
   width: 760px;
@@ -233,15 +234,21 @@ export const ReturnButton = styled.button`
   top: 10px;
   left: 10px;
 
+  @media (max-width: 480px) {
+    margin-left: 0;
+  }
+
   img {
     filter: brightness(0) invert(1);
     width: 22px;
     height: 22px;
+    margin-left: 2px;
     margin-right: 8px;
   }
 
   @media (max-width: 480px) {
     font-size: 20px;
     padding: 8px 12px;
+    margin-right: 4px;
   }
 `

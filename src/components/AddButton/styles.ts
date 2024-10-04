@@ -9,19 +9,19 @@ export const ButtonAdd = styled(Link)`
   color: #ffff;
   position: fixed;
   bottom: 10px;
-  right: 92px;
+  right: 100px;
   font-family: Roboto;
   display: flex;
   font-size: 20px;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  z-index: 20;
+  z-index: 1;
 
   @media (max-width: 480px) {
     height: 50px;
     width: 160px;
     font-size: 16px;
-    right: 10px;
+    right:40px;
   }
 `
