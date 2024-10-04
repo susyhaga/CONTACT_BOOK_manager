@@ -115,11 +115,11 @@ export const Alphabet = styled.div`
   z-index: 10;
   margin-right: 0;
   margin-left: -60px;
-  font-size: 15px;
+  font-size: 18px;
 
   ul {
     li {
-      margin-bottom: 9.5px;
+      margin-bottom: 12px;
     }
   }
 
