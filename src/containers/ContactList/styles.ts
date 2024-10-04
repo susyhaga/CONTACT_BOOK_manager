@@ -8,6 +8,7 @@ export const ContainerList = styled.div`
   @media (max-width: 480px) {
     flex-direction: column;
     padding: 8px;
+    overflow-y: scroll;
   }
 `
 
@@ -18,13 +19,13 @@ export const MainContainerForm = styled.main`
   background-image: url('/icons/form.jpg');
   background-size: cover;
   background-position: center;
-  overflow: hidden;
+  overflow: auto;
   width: 100vw;
-  height: 100vh;
-  position: relative;
+  min-height: 100vh;
 
   @media (max-width: 480px) {
     padding: 0 20px;
+    min-height: auto;
   }
 `
 
@@ -46,8 +47,8 @@ export const Alphabet = styled.div`
     width: 100%;
     height: auto;
     margin-left: 0;
-    top: 0; /* Ajustando a posição no mobile */
-    padding: 10px; /* Reduzindo o padding */
+    top: 0;
+    padding: 10px;
   }
 `
 
@@ -72,6 +73,29 @@ export const AlphabetItem = styled.div`
 
   @media (max-width: 480px) {
     font-size: 8px;
-    margin-bottom: 5px; /* Ajustando o espaçamento entre os itens */
+    margin-bottom: 5px;
+  }
+`
+
+export const ContactList = styled.div`
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-height: 800px;
+  overflow-y: scroll;
+
+  @media (max-width: 768px) {
+    margin-top: 12px;
+    padding: 0 12px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 6px;
+    padding: 0 8px;
+    margin-top: 8px;
+    max-height: 800px;
+    overflow-y: scroll;
   }
 `

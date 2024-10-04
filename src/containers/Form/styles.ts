@@ -16,8 +16,9 @@ export const MainContainerForm = styled.main`
   @media (max-width: 480px) {
     padding: 0 20px;
     height: auto;
+    overflow-y: scroll;
   }
-`;
+`
 
 export const ParentContainer = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ export const ParentContainer = styled.div`
     flex-direction: column;
     height: auto;
   }
-`;
+`
 
 export const ContainerForm = styled.main`
   display: block;
@@ -48,7 +49,7 @@ export const ContainerForm = styled.main`
     height: auto;
     padding: 20px;
   }
-`;
+`
 
 export const IconContainer = styled.div`
   display: flex;
@@ -67,7 +68,7 @@ export const IconContainer = styled.div`
     width: 50px;
     height: 50px;
   }
-`;
+`
 
 export const Icon = styled.img`
   width: 44px;
@@ -80,7 +81,7 @@ export const Icon = styled.img`
     width: 36px;
     height: 36px;
   }
-`;
+`
 
 export const TitleForm = styled.form`
   font-weight: bold;
@@ -94,7 +95,7 @@ export const TitleForm = styled.form`
   @media (max-width: 480px) {
     font-size: 24px;
   }
-`;
+`
 
 export const Form = styled.form`
   max-width: 547px;
@@ -111,7 +112,7 @@ export const Form = styled.form`
   @media (max-width: 480px) {
     font-size: 12px;
   }
-`;
+`
 
 export const Field = styled.input`
   padding: 8px;
@@ -125,26 +126,26 @@ export const Field = styled.input`
   @media (max-width: 480px) {
     font-size: 12px;
   }
-`;
+`
 
 export const Asterisk = styled.span`
   color: ${varColors.red};
   margin-left: 4px;
-`;
+`
 
 export const PhoneDiv = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 10px;
   flex-wrap: wrap;
-`;
+`
 
 export const TextInputs = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   color: ${varColors.title};
-`;
+`
 
 export const InputContainer = styled.div`
   display: flex;
@@ -174,11 +175,14 @@ export const InputContainer = styled.div`
   @media (max-width: 480px) {
     width: 100%;
   }
-`;
+`
 
 export const InputContainerPhone = styled(InputContainer)`
   width: 68%;
-`;
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`
 
 export const Options = styled.div`
   display: flex;
@@ -205,7 +209,7 @@ export const Options = styled.div`
   @media (max-width: 480px) {
     flex-direction: column;
   }
-`;
+`
 
 export const Option = styled.div`
   margin-bottom: 16px;
@@ -215,7 +219,7 @@ export const Option = styled.div`
   @media (max-width: 480px) {
     font-size: 12px;
   }
-`;
+`
 
 export const ReturnButton = styled.button`
   background-color: ${varColors.title};
@@ -240,4 +244,4 @@ export const ReturnButton = styled.button`
     font-size: 20px;
     padding: 8px 12px;
   }
-`;
+`

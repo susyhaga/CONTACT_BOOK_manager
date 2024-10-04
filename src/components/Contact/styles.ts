@@ -1,21 +1,21 @@
-import styled from 'styled-components';
-import varColors from '../../styles/varColors';
-import * as enums from '../../enums/Contacts/enumsContacts';
-import { Button } from '../../styles';
+import styled from 'styled-components'
+import varColors from '../../styles/varColors'
+import * as enums from '../../enums/Contacts/enumsContacts'
+import { Button } from '../../styles'
 
 type TagProps = {
-  parameters: 'category';
-  category: enums.Category;
-};
+  parameters: 'category'
+  category: enums.Category
+}
 
 function returnColor(props: TagProps): string {
   if (props.parameters === 'category') {
-    if (props.category === enums.Category.FAMILY) return varColors.family;
-    if (props.category === enums.Category.FRIEND) return varColors.friends;
-    if (props.category === enums.Category.OTHERS) return varColors.others;
-    if (props.category === enums.Category.BUSINESS) return varColors.work;
+    if (props.category === enums.Category.FAMILY) return varColors.family
+    if (props.category === enums.Category.FRIEND) return varColors.friends
+    if (props.category === enums.Category.OTHERS) return varColors.others
+    if (props.category === enums.Category.BUSINESS) return varColors.work
   }
-  return '#b33939';
+  return '#b33939'
 }
 
 export const Card = styled.div`
@@ -31,6 +31,9 @@ export const Card = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 16px;
 
+  max-height: 400px; /* Ajuste este valor conforme necessário */
+  overflow-y: auto;
+
   label {
     display: flex;
     align-items: center;
@@ -42,7 +45,7 @@ export const Card = styled.div`
     left: 0;
     margin: 8px;
   }
-`;
+`
 
 export const Title = styled.h3`
   font-size: 18px;
@@ -54,7 +57,7 @@ export const Title = styled.h3`
   @media (max-width: 480px) {
     font-size: 16px;
   }
-`;
+`
 
 export const Name = styled.p`
   margin: 0;
@@ -63,7 +66,7 @@ export const Name = styled.p`
   color: black;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-`;
+`
 
 export const Email = styled.p`
   margin: 0;
@@ -71,7 +74,7 @@ export const Email = styled.p`
   margin-top: 16px;
   padding-top: 4px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-`;
+`
 
 export const Phone = styled.p`
   margin: 0;
@@ -79,7 +82,7 @@ export const Phone = styled.p`
   padding-top: 4px;
   color: black;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-`;
+`
 
 export const Tag = styled.span<TagProps>`
   padding: 4px 8px;
@@ -95,13 +98,13 @@ export const Tag = styled.span<TagProps>`
   @media (max-width: 480px) {
     font-size: 8px;
   }
-`;
+`
 
 export const ActionsSideBar = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 16px;
   margin-top: 8px;
-`;
+`
 
 export const CancelRemoveButton = styled(Button)`
   background-color: ${varColors.red};
@@ -111,7 +114,7 @@ export const CancelRemoveButton = styled(Button)`
     font-size: 12px;
     padding: 8px;
   }
-`;
+`
 
 export const EditField = styled.div`
   margin: 10px 0;
@@ -137,12 +140,12 @@ export const EditField = styled.div`
       padding: 12px;
     }
   }
-`;
+`
 
 export const Icon = styled.strong`
   margin-right: 8px;
   margin-top: 8px;
-`;
+`
 
 export const ErrorMessage = styled.p`
   color: red;
@@ -151,4 +154,4 @@ export const ErrorMessage = styled.p`
   @media (max-width: 480px) {
     font-size: 12px;
   }
-`;
+`
