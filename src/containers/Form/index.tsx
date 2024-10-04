@@ -112,7 +112,7 @@ const ContactForm = () => {
         </ReturnButton>
         <ContainerForm>
           <IconContainer>
-            <Icon src="/icons/add_black.png" alt="Add contact icon" />
+            <Icon src="/icons/addcontact_white.png" alt="Add contact icon" />
           </IconContainer>
           <TitleForm>Create New Contact</TitleForm>
           <Form onSubmit={handleSubmit}>

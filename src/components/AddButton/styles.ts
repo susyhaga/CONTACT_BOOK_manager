@@ -17,4 +17,11 @@ export const ButtonAdd = styled(Link)`
   align-items: center;
   text-decoration: none;
   z-index: 20;
+
+  @media (max-width: 480px) {
+    height: 50px;
+    width: 160px;
+    font-size: 16px;
+    right: 10px;
+  }
 `

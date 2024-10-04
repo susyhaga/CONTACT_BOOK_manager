@@ -1,22 +1,21 @@
-import styled from 'styled-components'
-import varColors from '../../styles/varColors'
-import * as enums from '../../enums/Contacts/enumsContacts'
-import { Button } from '../../styles'
+import styled from 'styled-components';
+import varColors from '../../styles/varColors';
+import * as enums from '../../enums/Contacts/enumsContacts';
+import { Button } from '../../styles';
 
-// Definindo a tipagem para as propriedades do Tag
 type TagProps = {
-  parameters: 'category'
-  category: enums.Category // ou o tipo que você estiver usando
-}
+  parameters: 'category';
+  category: enums.Category;
+};
 
 function returnColor(props: TagProps): string {
   if (props.parameters === 'category') {
-    if (props.category === enums.Category.FAMILY) return varColors.family
-    if (props.category === enums.Category.FRIEND) return varColors.friends
-    if (props.category === enums.Category.OTHERS) return varColors.others
-    if (props.category === enums.Category.BUSINESS) return varColors.work
+    if (props.category === enums.Category.FAMILY) return varColors.family;
+    if (props.category === enums.Category.FRIEND) return varColors.friends;
+    if (props.category === enums.Category.OTHERS) return varColors.others;
+    if (props.category === enums.Category.BUSINESS) return varColors.work;
   }
-  return '#b33939'
+  return '#b33939';
 }
 
 export const Card = styled.div`
@@ -38,24 +37,33 @@ export const Card = styled.div`
     margin-bottom: 8px;
     margin-right: 8px;
   }
-`
+
+  @media (max-width: 480px) {
+    left: 0;
+    margin: 8px;
+  }
+`;
+
 export const Title = styled.h3`
   font-size: 18px;
   font-weight: bold;
   margin-top: 8px;
   margin-bottom: 16px;
   padding-top: 4px;
-`
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
+`;
 
 export const Name = styled.p`
   margin: 0;
-  margin-top: 16px;
   margin-top: 8px;
   padding-top: 4px;
   color: black;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-`
+`;
 
 export const Email = styled.p`
   margin: 0;
@@ -63,7 +71,7 @@ export const Email = styled.p`
   margin-top: 16px;
   padding-top: 4px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-`
+`;
 
 export const Phone = styled.p`
   margin: 0;
@@ -71,9 +79,8 @@ export const Phone = styled.p`
   padding-top: 4px;
   color: black;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-`
+`;
 
-// Componente Tag
 export const Tag = styled.span<TagProps>`
   padding: 4px 8px;
   color: #fff;
@@ -84,20 +91,27 @@ export const Tag = styled.span<TagProps>`
   margin-right: 4px;
   margin-left: 16px;
   display: inline-block;
-`
 
-// Barra de ações
+  @media (max-width: 480px) {
+    font-size: 8px;
+  }
+`;
+
 export const ActionsSideBar = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 16px;
   margin-top: 8px;
-`
+`;
 
-// Botão de cancelar ou remover
 export const CancelRemoveButton = styled(Button)`
   background-color: ${varColors.red};
   margin-top: 16px;
-`
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    padding: 8px;
+  }
+`;
 
 export const EditField = styled.div`
   margin: 10px 0;
@@ -118,14 +132,23 @@ export const EditField = styled.div`
     border-radius: 4px;
     border: 2px dotted rgba(0, 0, 0, 1);
     padding: 16px;
+
+    @media (max-width: 480px) {
+      padding: 12px;
+    }
   }
-`
+`;
 
 export const Icon = styled.strong`
   margin-right: 8px;
   margin-top: 8px;
-`
+`;
+
 export const ErrorMessage = styled.p`
   color: red;
   margin: 10px 0;
-`
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
+`;

@@ -1,19 +1,16 @@
-import styled from 'styled-components'
-import varColors from '../../styles/varColors'
+import styled from 'styled-components';
+import varColors from '../../styles/varColors';
 
-// Tipagem da prop ATIVO
 type Props = {
-  active: boolean
-}
+  active: boolean;
+};
 
-// 1) Div principal do Card
 export const Card = styled.div<Props>`
   border: 1px solid ${(props) => (props.active ? varColors.title : '#a1a1a1')};
   background-color: ${(props) => (props.active ? '#ffff' : '#fcfcfc')};
   color: ${(props) => (props.active ? varColors.title : '#5E5E5E')};
   border-radius: 8px;
   width: 100%;
-
   height: 63px;
   padding: 10px;
   display: flex;
@@ -21,17 +18,24 @@ export const Card = styled.div<Props>`
   justify-content: space-between;
   gap: 8px;
   cursor: pointer;
-`
 
-// 2) Estilo para o contador (número de contatos)
+  @media (max-width: 480px) {
+    height: 50px;
+    padding: 8px;
+  }
+`;
+
 export const Counter = styled.span`
   font-weight: bold;
   font-size: 24px;
   display: block;
   margin: 3px;
-`
 
-// 3) Estilo para o label (texto do estado do contato)
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
+`;
+
 export const Label = styled.span`
   font-family: Roboto;
   font-size: 14px;
@@ -41,4 +45,9 @@ export const Label = styled.span`
   margin-right: 40px;
   margin-left: 3px;
   margin-bottom: 6px;
-`
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    margin-right: 20px;
+  }
+`;

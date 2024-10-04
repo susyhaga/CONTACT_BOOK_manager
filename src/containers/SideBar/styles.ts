@@ -13,15 +13,25 @@ export const SideBar = styled.aside<SideBarProps>`
   height: 100vh;
   border-radius: 8px;
   width: 424px;
-  display: ${(props) =>
-    props.show ? 'block' : 'none'}; /* Controle de visibilidade */
+  display: ${(props) => (props.show ? 'block' : 'none')};
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 12px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 8px;
+  }
 `
-// Container para o campo de busca
+
 export const SearchContainer = styled.div`
   position: relative;
   width: 100%;
   margin-bottom: 16px;
 `
+
 export const SearchIcon = styled.img`
   position: absolute;
   left: 10px;
@@ -30,6 +40,7 @@ export const SearchIcon = styled.img`
   width: 20px;
   height: 20px;
 `
+
 export const SearchInput = styled.input`
   width: 100%;
   height: 40px;
@@ -40,6 +51,11 @@ export const SearchInput = styled.input`
   &:focus {
     border-color: #1e90ff;
     outline: none;
+  }
+
+  @media (max-width: 480px) {
+    height: 36px;
+    padding: 10px 30px;
   }
 `
 
@@ -56,6 +72,10 @@ export const Title = styled.h2`
   margin-bottom: 16px;
   display: flex;
   justify-content: center;
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
 `
 
 export const Actions = styled.div`
@@ -64,6 +84,11 @@ export const Actions = styled.div`
     width: 26vw;
     height: 40px;
     margin-bottom: 0px;
+
+    @media (max-width: 480px) {
+      width: 100%;
+      height: 36px;
+    }
   }
 `
 
@@ -73,7 +98,12 @@ export const FilterSection = styled.div`
     font-weight: bold;
     margin-top: 0px;
   }
+
+  @media (max-width: 480px) {
+    margin-bottom: 24px;
+  }
 `
+
 export const ContactList = styled.div`
   margin-top: 16px;
   display: flex;

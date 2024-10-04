@@ -11,8 +11,7 @@ import { RootState } from '../../store'
 import { ContactModel } from '../../components/Contact'
 import { saveContactsToLocalStorage } from '../../helpers/localStorage'
 import { Alphabet, ContainerList } from './styles'
-import addContactIcon from '../../icons/addcontact_white.png'
-
+import addContactIcon from '../../icons/contact.png'
 
 const ContactList = () => {
   const {
