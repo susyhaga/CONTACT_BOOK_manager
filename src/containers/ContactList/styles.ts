@@ -56,14 +56,14 @@ export const ContactBook = styled.div`
   width: 100%;
 
   h1 {
-    font-size: 30px;
+    font-size: 36px;
     font-weight: bold;
     color: black;
     margin-left: 8px;
   }
 
   img {
-    width: 60px;
+    width: 80px;
     margin-right: 5px;
   }
 
@@ -104,7 +104,7 @@ export const ContactBook = styled.div`
 
 export const Alphabet = styled.div`
   position: sticky;
-  top: 50px;
+  top: 54px;
   height: calc(196vh - 80px);
   width: 48px;
   display: flex;
@@ -178,13 +178,13 @@ export const AlphabetItem = styled.div`
 `;
 
 export const ContactList = styled.div`
-  margin-top: 10px;
+  margin-top: 4px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 100%;
   height: 100%;
-  max-height: calc(160vh - 50px);
+  max-height: calc(160vh - 40px);
   overflow-y: auto;
 
   @media (max-width: 768px) {
