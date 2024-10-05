@@ -7,12 +7,12 @@ import * as enums from '../../enums/Contacts/enumsContacts'
 const generateContacts = (num: number): ContactModel[] => {
   const contacts: ContactModel[] = []
   const ddds = ['11', '21', '31', '41', '51', '61', '71', '81', '91']
-  const categories = Object.values(enums.Category).filter(category => category !== enums.Category.ALL);
+  const categories = Object.values(enums.Category).filter(category => category !== enums.Category.ALL) as enums.Category[]
 
   for (let i = 1; i <= num; i++) {
     contacts.push({
       id: i.toString(),
-      name: ` Contact Name ${i}`,
+      name: `Contact Name ${i}`,
       email: `example${i}@example.com`,
       phone: `12345678${i.toString().padStart(2, '0')}`,
       ddd: ddds[i % ddds.length],
@@ -30,9 +30,10 @@ type ContactsState = {
   searchQuery: string
 }
 
+// Carregando contatos do localStorage ou gerando fictícios
 const initialState: ContactsState = {
   selectedCategory: null,
-  items: getContactsFromLocalStorage() || generateContacts(400), // Carrega contatos do localStorage, ou gera fictícios
+  items: getContactsFromLocalStorage() || generateContacts(400), // Carrega contatos do localStorage ou gera fictícios
   loading: false,
   error: null,
   searchQuery: ''
@@ -45,18 +46,18 @@ const contactsSlice = createSlice({
     setSelectedCategory(state, action: PayloadAction<string | null>) {
       state.selectedCategory = action.payload
     },
-    remove: (state, action: PayloadAction<string>) => {
+    remove(state, action: PayloadAction<string>) {
       state.items = state.items.filter(contact => contact.id !== action.payload)
       saveContactsToLocalStorage(state.items)
     },
-    edit: (state, action: PayloadAction<ContactModel>) => {
+    edit(state, action: PayloadAction<ContactModel>) {
       const indexOfContact = state.items.findIndex(contact => contact.id === action.payload.id)
-      if (indexOfContact >= 0) {
+      if (indexOfContact !== -1) {
         state.items[indexOfContact] = { ...state.items[indexOfContact], ...action.payload }
         saveContactsToLocalStorage(state.items)
       }
     },
-    register: (state, action: PayloadAction<Omit<ContactModel, 'id'>>) => {
+    register(state, action: PayloadAction<Omit<ContactModel, 'id'>>) {
       const { name, email, phone, category } = action.payload
       const contactExists = state.items.some(contact =>
         contact.name.toLowerCase() === name.toLowerCase() ||
@@ -79,19 +80,11 @@ const contactsSlice = createSlice({
       state.items.push(newContact)
       saveContactsToLocalStorage(state.items)
     },
-    // Removido: loadContacts
-    search: (state, action: PayloadAction<string>) => {
+    search(state, action: PayloadAction<string>) {
       state.searchQuery = action.payload
     }
   }
 })
 
-export const {
-  setSelectedCategory,
-  search,
-  edit,
-  remove,
-  register
-} = contactsSlice.actions
-
+export const { setSelectedCategory, search, edit, remove, register } = contactsSlice.actions
 export default contactsSlice.reducer

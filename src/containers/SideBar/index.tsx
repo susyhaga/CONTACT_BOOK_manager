@@ -1,39 +1,20 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaSearch } from 'react-icons/fa'
-
 import * as S from './styles'
 import FilterCard from '../../components/FilterCard'
 import { RootState } from '../../store'
 import * as enums from '../../enums/Contacts/enumsContacts'
 import { changeFilter } from '../../store/slices/filters'
 
-// Definindo o tipo para o contato
-type Contact = {
-  id: number // ou string, dependendo do seu caso
-  name: string
-  category: enums.Category
-}
-
 type Props = {
   showFilters: boolean
 }
 
-// Criando contatos estáticos
-const initialContacts: Contact[] = [
-  { id: 1, name: 'John Doe', category: enums.Category.FAMILY },
-  { id: 2, name: 'Jane Smith', category: enums.Category.FRIEND },
-  { id: 3, name: 'Bob Johnson', category: enums.Category.BUSINESS },
-  { id: 4, name: 'Alice Brown', category: enums.Category.OTHERS },
-  // Adicione mais contatos conforme necessário
-]
-
 const SideBar = ({ showFilters }: Props) => {
   const dispatch = useDispatch()
   const { criterion, term } = useSelector((state: RootState) => state.filter)
-
-  // Usando contatos do estado inicial
-  const contacts = initialContacts
+  const contacts = useSelector((state: RootState) => state.contacts.items) // Obtendo os contatos do estado Redux
 
   const handleChangeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(
@@ -54,16 +35,16 @@ const SideBar = ({ showFilters }: Props) => {
   const categoriesCount = {
     all: contacts.length,
     family: contacts.filter(
-      (contact: Contact) => contact.category === enums.Category.FAMILY
+      (contact) => contact.category === enums.Category.FAMILY
     ).length,
     friend: contacts.filter(
-      (contact: Contact) => contact.category === enums.Category.FRIEND
+      (contact) => contact.category === enums.Category.FRIEND
     ).length,
     business: contacts.filter(
-      (contact: Contact) => contact.category === enums.Category.BUSINESS
+      (contact) => contact.category === enums.Category.BUSINESS
     ).length,
     others: contacts.filter(
-      (contact: Contact) => contact.category === enums.Category.OTHERS
+      (contact) => contact.category === enums.Category.OTHERS
     ).length,
   }
 
@@ -93,14 +74,14 @@ const SideBar = ({ showFilters }: Props) => {
 
   return (
     <S.SideBar show={showFilters}>
-      <S.Title>Search Contacts </S.Title>
+      <S.Title>Search Contacts</S.Title>
       <S.Actions>
         <S.FilterSection>
           <S.SearchContainer>
             <S.SearchIcon as={FaSearch} />
             <S.SearchInput
               type="text"
-              placeholder="contact name"
+              placeholder="Contact name"
               value={term}
               onChange={handleSearchChange}
             />
@@ -108,31 +89,23 @@ const SideBar = ({ showFilters }: Props) => {
         </S.FilterSection>
 
         <S.FilterSection>
-          <label htmlFor="criterion">category:  </label>
+          <label htmlFor="criterion">Category: </label>
           <select
             id="criterion"
             value={criterion}
             onChange={handleChangeFilter}
           >
-            <option value={enums.Category.FAMILY}>
-              {enums.Category.FAMILY}
-            </option>
-            <option value={enums.Category.FRIEND}>
-              {enums.Category.FRIEND}
-            </option>
-            <option value={enums.Category.BUSINESS}>
-              {enums.Category.BUSINESS}
-            </option>
-            <option value={enums.Category.OTHERS}>
-              {enums.Category.OTHERS}
-            </option>
-            <option value={enums.Category.ALL}>{enums.Category.ALL}</option>
+            <option value={enums.Category.ALL}>All</option>
+            <option value={enums.Category.FAMILY}>Family</option>
+            <option value={enums.Category.FRIEND}>Friend</option>
+            <option value={enums.Category.BUSINESS}>Business</option>
+            <option value={enums.Category.OTHERS}>Others</option>
           </select>
         </S.FilterSection>
       </S.Actions>
 
       <S.Filters>
-        <h2>filters: <h2>total</h2> </h2>
+        <h2>Filters: <h2>Total</h2></h2>
         {categories.map(({ key, name, count }) => (
           <FilterCard
             key={key}

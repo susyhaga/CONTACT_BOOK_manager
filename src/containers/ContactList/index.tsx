@@ -29,7 +29,7 @@ const ContactList = () => {
     })
   }
 
-  const contatosFiltrados = filterContacts()
+  const filtered = filterContacts()
 
   // Salvar contatos no localStorage sempre que eles mudarem
   useEffect(() => {
@@ -44,7 +44,7 @@ const ContactList = () => {
     dispatch(remove(id))
   }
 
-  if (!contatosFiltrados.length) return <div>No contacts found.</div> // Mensagem quando não há contatos filtrados
+  if (!filtered.length) return <div>No contacts found.</div> // Mensagem quando não há contatos filtrados
 
   return (
     <ContainerList>
@@ -54,7 +54,7 @@ const ContactList = () => {
           <h1>Phone Book</h1>
         </ContactBook>
         <ul>
-          {contatosFiltrados.map((t: ContactModel) => (
+          {filtered.map((t: ContactModel) => (
             <li key={t.id}>
               <Contact
                 id={t.id}
