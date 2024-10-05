@@ -1,11 +1,14 @@
 {
   "contacts": [
     {
-      "name": "Miriam Douglas",
-      "email": "Estella_Durgan@yahoo.com",
-      "phone": "49 01 67034-6175",
+      "id": "1",
+      "name": "Archie Ledner",
+      "email": "Rudy.Koch@hotmail.com",
+      "phone": "29 80 54498-8137",
+      "photo": "https://randomuser.me/api/portraits/women/9.jpg",
       "category": "friends",
-      "id": "1"
+      "classification": null,
+      "priority": null
     },
     {
       "id": "8",
@@ -13,16 +16,6 @@
       "email": "Jacklyn_Considine-Jast@hotmail.com",
       "phone": "88 05 08415-0108",
       "photo": "https://randomuser.me/api/portraits/men/8.jpg",
-      "category": "friends",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "9",
-      "name": "Archie Ledner",
-      "email": "Rudy.Koch@hotmail.com",
-      "phone": "29 80 54498-8137",
-      "photo": "https://randomuser.me/api/portraits/women/9.jpg",
       "category": "friends",
       "classification": null,
       "priority": null
@@ -36,13 +29,6 @@
       "category": "work",
       "classification": null,
       "priority": null
-    },
-    {
-      "name": "Lindsay Corkery-Becker",
-      "email": "Antonietta.Brown@hotmail.com",
-      "phone": "37 15 02725-5402",
-      "category": "family",
-      "id": "12"
     },
     {
       "id": "13",
@@ -60,16 +46,6 @@
       "email": "Bianka_Hirthe@hotmail.com",
       "phone": "80 34 31435-0479",
       "photo": "https://randomuser.me/api/portraits/men/14.jpg",
-      "category": "others",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "15",
-      "name": "Mrs. Susie McClure-Wilderman Jr.",
-      "email": "Bridget2@yahoo.com",
-      "phone": "53 78 32453-9667",
-      "photo": "https://randomuser.me/api/portraits/women/15.jpg",
       "category": "others",
       "classification": null,
       "priority": null
