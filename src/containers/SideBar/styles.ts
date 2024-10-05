@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import varColors from '../../styles/varColors'
 
 type SideBarProps = {
   show: boolean
@@ -11,7 +12,7 @@ export const SideBar = styled.aside<SideBarProps>`
   background-position: center;
   height: 100vh;
   border-radius: 8px;
-  width: 424px;
+  width: 524px;
   display: ${(props) => (props.show ? 'block' : 'none')};
 
   @media (max-width: 768px) {
@@ -27,11 +28,26 @@ export const SideBar = styled.aside<SideBarProps>`
     overflow-y: scroll;
   }
 `
+export const Title = styled.h2`
+  font-size: 26px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    font-size: 22px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
+`
 
 export const SearchContainer = styled.div`
   position: relative;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 
   @media (max-width: 768px) {
     margin-bottom: 12px;
@@ -73,31 +89,58 @@ export const SearchInput = styled.input`
     padding: 10px 30px;
   }
 `
+export const FilterSection = styled.div`
+display: flex;
+flex-direction: row;
+margin-top: 10px;
 
+  label {
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 10px;
+  }
+
+  select{
+    margin-top: 2px;
+    width: 60px;
+    height: 20px;
+    margin-bottom: 40px;
+    font-weight: bold;
+    color: ${varColors.title};
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 20px;
+  }
+`
 export const Filters = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  border: 2px dotted ${varColors.grey}; /* Adiciona a borda ao container */
+  gap: 12px;
   width: 100%;
-  margin-top: 20px;
+  padding:30px;
+
+  h2{
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    gap: 170px
+
+  }
 
   @media (max-width: 768px) {
     margin-top: 16px;
   }
-`
-
-export const Title = styled.h2`
-  font-size: 24px;
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: center;
-
-  @media (max-width: 768px) {
-    font-size: 22px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 20px;
+  @media (max-width: 7480px) {
+    margin-top: 16px;
   }
 `
 
@@ -120,35 +163,3 @@ export const Actions = styled.div`
   }
 `
 
-export const FilterSection = styled.div`
-  margin-bottom: 32px;
-
-  label {
-    font-weight: bold;
-    margin-top: 0px;
-  }
-
-  @media (max-width: 768px) {
-    margin-bottom: 24px;
-  }
-
-  @media (max-width: 480px) {
-    margin-bottom: 20px;
-  }
-`
-
-export const ContactList = styled.div`
-  margin-top: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  @media (max-width: 768px) {
-    margin-top: 12px;
-    gap: 6px;
-  }
-
-  @media (max-width: 480px) {
-    gap: 4px;
-  }
-`

@@ -6,11 +6,11 @@ import {
   useDeleteContactMutation
 } from '../../services/api'
 import Contact from '../../components/Contact'
-import { MainContainer, ContactBook } from '../../styles'
+import { MainContainer } from '../../styles'
 import { RootState } from '../../store'
 import { ContactModel } from '../../components/Contact'
 import { saveContactsToLocalStorage } from '../../helpers/localStorage'
-import { Alphabet, ContainerList } from './styles'
+import { Alphabet, ContainerList, ContactBook } from './styles'
 import addContactIcon from '../../icons/contact.png'
 
 const ContactList = () => {

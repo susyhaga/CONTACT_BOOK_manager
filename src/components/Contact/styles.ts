@@ -117,23 +117,22 @@ export const CancelRemoveButton = styled(Button)`
 `
 
 export const EditField = styled.div`
-  margin: 10px 0;
-  margin-top: 8px;
 
   label {
     font-weight: bold;
     margin-right: 6px;
-    margin-top: 12px;
+    margin-top: 8px;
+    margin-bottom: 2px;
   }
 
   input,
   select {
-    width: 100%;
-    padding: 8px;
+    width: 70%;
+    padding: 2px;
     margin-top: 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    border: 2px dotted rgba(0, 0, 0, 1);
+    border: 1px solid ${varColors.grey};
+    border-radius: 1px;
+    border: 2px solid rgba(0, 0, 0, 1);
     padding: 16px;
 
     @media (max-width: 480px) {
@@ -144,7 +143,7 @@ export const EditField = styled.div`
 
 export const Icon = styled.strong`
   margin-right: 8px;
-  margin-top: 8px;
+  margin-top: 6px;
 `
 
 export const ErrorMessage = styled.p`

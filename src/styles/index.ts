@@ -29,31 +29,14 @@ export const Container = styled.div`
   }
 `
 
-export const Alphabet = styled.div`
-  position: sticky;
-  top: 10px;
-  height: 100vh;
-  width: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f4f4f4;
-  padding: 28px;
-  z-index: 10;
-
-  @media (max-width: 480px) {
-    width: 30px;
-    padding: 16px;
-  }
-`
 
 export const MainContainer = styled.main`
   flex-grow: 1;
   background-color: #fff;
   border-radius: 8px;
-  height: auto; /* Altera de 100vh para auto para permitir rolagem */
-  max-height: 90vh; /* Define uma altura máxima para rolagem */
-  overflow-y: auto; /* Permite rolagem vertical */
+  height: auto;
+  max-height: 100vh;
+  overflow-y: auto;
 
   @media (max-width: 480px) {
     height: auto;
@@ -74,39 +57,6 @@ export const Field = styled.input`
 
   @media (max-width: 480px) {
     padding: 6px;
-  }
-`
-
-export const ContactBook = styled.div`
-  position: sticky;
-  top: 0;
-  background-image: url('/icons/form.jpg');
-  z-index: 1;
-  margin: 0;
-  padding: 60px;
-  width: calc(110% - 10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  h1 {
-    font-size: 62px;
-    font-weight: bold;
-    color: black;
-    text-align: left;
-    margin-left: 20px;
-
-    @media (max-width: 480px) {
-      font-size: 36px;
-    }
-  }
-
-  img {
-    width: 80px;
-
-    @media (max-width: 480px) {
-      width: 60px;
-    }
   }
 `
 
@@ -131,6 +81,10 @@ export const Button = styled.button`
 export const SaveButton = styled(Button)`
   background-color: ${varColors.green};
   color: white;
+
+  &:hover {
+    color: black;
+  }
 `
 
 export default GlobalStyle

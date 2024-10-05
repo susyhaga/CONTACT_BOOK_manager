@@ -85,7 +85,7 @@ const SideBar = ({ showFilters }: Props) => {
 
   return (
     <S.SideBar show={showFilters}>
-      <S.Title>Search Contacts</S.Title>
+      <S.Title>Search Contacts </S.Title>
       <S.Actions>
         <S.FilterSection>
           <S.SearchContainer>
@@ -100,7 +100,7 @@ const SideBar = ({ showFilters }: Props) => {
         </S.FilterSection>
 
         <S.FilterSection>
-          <label htmlFor="criterion">category: </label>
+          <label htmlFor="criterion">category:  </label>
           <select
             id="criterion"
             value={criterion}
@@ -121,9 +121,12 @@ const SideBar = ({ showFilters }: Props) => {
             <option value={enums.Category.ALL}>{enums.Category.ALL}</option>
           </select>
         </S.FilterSection>
+
+
       </S.Actions>
 
       <S.Filters>
+        <h2>filters: <h2>total</h2> </h2>
         {categories.map(({ key, name, count }) => (
           <FilterCard
             key={key}
