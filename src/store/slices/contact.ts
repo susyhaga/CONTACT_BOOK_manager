@@ -1,12 +1,39 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { ContactModel } from '../../components/Contact'
 import { saveContactsToLocalStorage } from '../../helpers/localStorage'
-import { contactsApi } from '../../services/api'
+
+// Enum para categorias
+export enum Category {
+  BUSINESS = 'work',
+  FRIEND = 'friends',
+  FAMILY = 'family',
+  OTHERS = 'others',
+  ALL = 'all'
+}
+
+// Função para gerar contatos fictícios
+const generateContacts = (num: number): ContactModel[] => {
+  const contacts: ContactModel[] = []
+  const categories = Object.values(Category)
+  const ddds = ['11', '21', '31', '41', '51', '61', '71', '81', '91']
+
+  for (let i = 1; i <= num; i++) {
+    contacts.push({
+      id: i.toString(),
+      name: `Contato ${i}`,
+      email: `contato${i}@example.com`,
+      phone: `12345678${i.toString().padStart(2, '0')}`,
+      ddd: ddds[i % ddds.length],
+      category: categories[i % categories.length]
+    })
+  }
+  return contacts
+}
 
 type ContactsState = {
   selectedCategory: string | null
-  items: ContactModel[] // Contatos do db.json
-  additionalContacts: ContactModel[] // Contatos adicionais
+  items: ContactModel[]
+  additionalContacts: ContactModel[]
   loading: boolean
   error: string | null
   searchQuery: string
@@ -14,8 +41,8 @@ type ContactsState = {
 
 const initialState: ContactsState = {
   selectedCategory: null,
-  items: [],
-  additionalContacts: [], // Inicializa a lista de contatos adicionais
+  items: generateContacts(400),
+  additionalContacts: [],
   loading: false,
   error: null,
   searchQuery: ''
@@ -39,27 +66,6 @@ export const fetchContacts = createAsyncThunk<
     )
   }
 })
-
-// Ação para carregar contatos adicionais
-export const loadAdditionalContacts = createAsyncThunk<
-  ContactModel[],
-  void,
-  { rejectValue: string }
->('contacts/loadAdditionalContacts', async (_, { rejectWithValue }) => {
-  try {
-    // Aqui você deve carregar seus 200 contatos de algum lugar
-    const additionalContacts: ContactModel[] = [/* seus 200 contatos aqui */] // Adiciona a anotação de tipo aqui
-    return additionalContacts
-  } catch (error) {
-    return rejectWithValue(
-      error instanceof Error ? error.message : 'Unknown error.'
-    )
-  }
-})
-
-const validateEmail = (email: string) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-const validatePhone = (phone: string) => /^\d{10,11}$/.test(phone)
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -88,7 +94,6 @@ const contactsSlice = createSlice({
     },
     register: (state, action: PayloadAction<Omit<ContactModel, 'id'>>) => {
       const { name, email, phone } = action.payload
-
       const contactExists = state.items.some(
         (contact) =>
           contact.name.toLowerCase() === name.toLowerCase() ||
@@ -101,22 +106,13 @@ const contactsSlice = createSlice({
         return
       }
 
-      if (!email || !validateEmail(email)) {
-        console.error('Invalid email:', email)
-        return
-      }
-
-      if (!validatePhone(phone)) {
-        console.error('Invalid phone:', phone)
-        return
-      }
-
       const newContact: ContactModel = {
         ...action.payload,
-        id:
-          state.items.length > 0
-            ? (Math.max(...state.items.map((c) => Number(c.id))) + 1).toString()
-            : '1'
+        id: state.items.length > 0
+          ? (Math.max(...state.items.map((c) => Number(c.id))) + 1).toString()
+          : '1',
+        ddd: '11',
+        category: action.payload.category
       }
 
       state.items.push(newContact)
@@ -124,9 +120,6 @@ const contactsSlice = createSlice({
     },
     loadContacts: (state, action: PayloadAction<ContactModel[]>) => {
       state.items = action.payload
-    },
-    loadAdditionalContactsState: (state, action: PayloadAction<ContactModel[]>) => {
-      state.additionalContacts = action.payload // Adiciona os contatos adicionais ao estado
     },
     search: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload
@@ -148,16 +141,9 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload as string
+        // Se a API falhar, mantém os contatos gerados automaticamente
+        state.items = generateContacts(300) // Reverte para contatos gerados
       })
-      .addCase(loadAdditionalContacts.fulfilled, (state, action) => {
-        state.additionalContacts = action.payload; // Atualiza com os contatos adicionais
-      })
-      .addMatcher(
-        contactsApi.endpoints.addContact.matchFulfilled,
-        (state, action) => {
-          state.items.push(action.payload)
-        }
-      )
   }
 })
 
@@ -168,7 +154,6 @@ export const {
   remove,
   register,
   loadContacts,
-  loadAdditionalContactsState // Exporta a nova ação
 } = contactsSlice.actions
 
 export default contactsSlice.reducer
