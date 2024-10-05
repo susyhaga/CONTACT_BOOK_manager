@@ -16,7 +16,8 @@ const ContactList = () => {
   const items = useSelector((state: RootState) => state.contacts.items)
   const { term, criterion } = useSelector((state: RootState) => state.filter)
 
-  const filtrarContatos = () => {
+  // Função para filtrar contatos com base no termo e critério
+  const filterContacts = () => {
     return items.filter((item: ContactModel) => {
       const termoMatch = term
         ? item.name.toLowerCase().startsWith(term.toLowerCase())
@@ -28,11 +29,12 @@ const ContactList = () => {
     })
   }
 
-  const contatosFiltrados = filtrarContatos()
+  const contatosFiltrados = filterContacts()
 
+  // Salvar contatos no localStorage sempre que eles mudarem
   useEffect(() => {
     saveContactsToLocalStorage(items)
-  }, [items]) // Salvar no localStorage sempre que os itens mudarem
+  }, [items])
 
   const handleEdit = (updatedContact: ContactModel) => {
     dispatch(edit(updatedContact))
@@ -42,7 +44,7 @@ const ContactList = () => {
     dispatch(remove(id))
   }
 
-  if (!items.length) return <div>No contacts found.</div> // Mensagem quando não há contatos
+  if (!contatosFiltrados.length) return <div>No contacts found.</div> // Mensagem quando não há contatos filtrados
 
   return (
     <ContainerList>

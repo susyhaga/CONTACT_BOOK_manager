@@ -9,9 +9,9 @@ const store = configureStore({
     // Removi a parte da API, pois você não está usando mais
     // [contactsApi.reducerPath]: contactsApi.reducer
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware() // Não é necessário adicionar middleware da API
-    // .concat(contactsApi.middleware)
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware() // Não é necessário adicionar middleware da API
+  //   // .concat(contactsApi.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

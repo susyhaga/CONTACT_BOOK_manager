@@ -1,13 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa'
 
 import * as S from './styles'
 import FilterCard from '../../components/FilterCard'
 import { RootState } from '../../store'
 import * as enums from '../../enums/Contacts/enumsContacts'
 import { changeFilter } from '../../store/slices/filters'
-import { useGetContactsQuery } from '../../services/api'
 
 // Definindo o tipo para o contato
 type Contact = {
@@ -20,12 +19,21 @@ type Props = {
   showFilters: boolean
 }
 
+// Criando contatos estáticos
+const initialContacts: Contact[] = [
+  { id: 1, name: 'John Doe', category: enums.Category.FAMILY },
+  { id: 2, name: 'Jane Smith', category: enums.Category.FRIEND },
+  { id: 3, name: 'Bob Johnson', category: enums.Category.BUSINESS },
+  { id: 4, name: 'Alice Brown', category: enums.Category.OTHERS },
+  // Adicione mais contatos conforme necessário
+]
+
 const SideBar = ({ showFilters }: Props) => {
   const dispatch = useDispatch()
   const { criterion, term } = useSelector((state: RootState) => state.filter)
-  const { data: contacts = [] } = useGetContactsQuery() as unknown as {
-    data: Contact[]
-  } // Tipando a resposta da query
+
+  // Usando contatos do estado inicial
+  const contacts = initialContacts
 
   const handleChangeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(
@@ -56,7 +64,7 @@ const SideBar = ({ showFilters }: Props) => {
     ).length,
     others: contacts.filter(
       (contact: Contact) => contact.category === enums.Category.OTHERS
-    ).length
+    ).length,
   }
 
   const categories = [
@@ -64,23 +72,23 @@ const SideBar = ({ showFilters }: Props) => {
     {
       key: enums.Category.FAMILY,
       name: 'Family',
-      count: categoriesCount.family
+      count: categoriesCount.family,
     },
     {
       key: enums.Category.FRIEND,
       name: 'Friend',
-      count: categoriesCount.friend
+      count: categoriesCount.friend,
     },
     {
       key: enums.Category.BUSINESS,
       name: 'Business',
-      count: categoriesCount.business
+      count: categoriesCount.business,
     },
     {
       key: enums.Category.OTHERS,
       name: 'Others',
-      count: categoriesCount.others
-    }
+      count: categoriesCount.others,
+    },
   ]
 
   return (
@@ -121,8 +129,6 @@ const SideBar = ({ showFilters }: Props) => {
             <option value={enums.Category.ALL}>{enums.Category.ALL}</option>
           </select>
         </S.FilterSection>
-
-
       </S.Actions>
 
       <S.Filters>

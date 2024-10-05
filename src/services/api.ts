@@ -2,7 +2,7 @@
 // import type { ContactModel } from '../components/Contact';
 
 // const baseUrl = 'http://localhost:4000';
-
+export {}
 // export const contactsApi = createApi({
 //   reducerPath: 'contactsApi',
 //   baseQuery: fetchBaseQuery({ baseUrl }),
@@ -10,7 +10,7 @@
 //     getContacts: builder.query<ContactModel[], void>({
 //       query: () => '/contacts',
 //     }),
-//     addContact: builder.mutation<ContactModel, Partial<ContactModel>>({
+    // addContact: builder.mutation<ContactModel, Partial   <  ContactModel  > >({
 //       query: (newContact) => ({
 //         url: '/contacts',
 //         method: 'POST',
