@@ -1,56 +1,6 @@
 {
   "contacts": [
     {
-      "id": "1",
-      "name": "Archie Ledner",
-      "email": "Rudy.Koch@hotmail.com",
-      "phone": "29 80 54498-8137",
-      "photo": "https://randomuser.me/api/portraits/women/9.jpg",
-      "category": "friends",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "8",
-      "name": "Tonya Moore",
-      "email": "Jacklyn_Considine-Jast@hotmail.com",
-      "phone": "88 05 08415-0108",
-      "photo": "https://randomuser.me/api/portraits/men/8.jpg",
-      "category": "friends",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "10",
-      "name": "Angel Osinski",
-      "email": "Erling.Donnelly@hotmail.com",
-      "phone": "11 67 05444-0137",
-      "photo": "https://randomuser.me/api/portraits/men/10.jpg",
-      "category": "work",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "13",
-      "name": "Susan Witting",
-      "email": "Lauren.Hilpert17@yahoo.com",
-      "phone": "87 62 95382-0241",
-      "photo": "https://randomuser.me/api/portraits/women/13.jpg",
-      "category": "others",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "14",
-      "name": "Mr. Tommy Cummerata",
-      "email": "Bianka_Hirthe@hotmail.com",
-      "phone": "80 34 31435-0479",
-      "photo": "https://randomuser.me/api/portraits/men/14.jpg",
-      "category": "others",
-      "classification": null,
-      "priority": null
-    },
-    {
       "id": "16",
       "name": "Marcella Waters",
       "email": "Lisette_Nikolaus@gmail.com",
@@ -87,16 +37,6 @@
       "phone": "91 62 13165-6176",
       "photo": "https://randomuser.me/api/portraits/women/19.jpg",
       "category": "family",
-      "classification": null,
-      "priority": null
-    },
-    {
-      "id": "20",
-      "name": "Eunice Labadie",
-      "email": "Santiago.Mertz31@hotmail.com",
-      "phone": "58 23 68668-6138",
-      "photo": "https://randomuser.me/api/portraits/men/20.jpg",
-      "category": "work",
       "classification": null,
       "priority": null
     },
@@ -8189,6 +8129,15 @@
       "email": "luzinha@hotmail.com",
       "phone": "11556767890",
       "category": "work"
+    },
+    {
+      "id": "1c28",
+      "name": "Susy Haga",
+      "email": "susy@gmail.com",
+      "ddi": "55",
+      "ddd": "11",
+      "phone": "99998888",
+      "category": "family"
     }
   ]
 }

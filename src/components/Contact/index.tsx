@@ -9,7 +9,6 @@ export type ContactModel = {
   id: string
   name: string
   email?: string
-  photo?: string
   ddi?: string
   ddd: string
   phone: string
@@ -42,6 +41,7 @@ const Contact = ({
     phone,
     category
   })
+
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {

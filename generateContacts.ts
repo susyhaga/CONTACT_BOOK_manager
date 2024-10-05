@@ -8,7 +8,6 @@ type Contact = {
   phone: string
   category?: string
   classification?: string | null
-  priority?: string | null
 }
 
 const contacts: Contact[] = []
@@ -22,7 +21,6 @@ for (let i = 1; i <= 800; i++) {
     phone: faker.helpers.replaceSymbols('## ## #####-####'),
     category: faker.helpers.arrayElement(['family', 'friends', 'work', 'all']),
     classification: null, // Opcional
-    priority: null // Opcional
   }
 
   contacts.push(contact)
