@@ -98,6 +98,7 @@ const ContactForm = () => {
     navigate('/')
   }
 
+
   return (
     <MainContainerForm>
       <ParentContainer>
@@ -121,7 +122,7 @@ const ContactForm = () => {
               value={contactData.name}
               onChange={handleChange}
               type="text"
-              placeholder="Contact Name"
+              placeholder="contact Name"
               required
             />
             <TextInputs>Email</TextInputs>
@@ -132,6 +133,7 @@ const ContactForm = () => {
               type="email"
               placeholder="example@example.com"
             />
+
             <PhoneDiv>
               <TextInputs>
                 <label>
@@ -139,18 +141,19 @@ const ContactForm = () => {
                 </label>
               </TextInputs>
               <InputContainer>
-                <label htmlFor="ddi">Country</label>
+                <label htmlFor="ddi">country</label>
                 <input
                   name="ddi"
                   id="ddi"
                   value={contactData.ddi}
                   onChange={handleChange}
-                  type="tel"
-                  placeholder="Optional"
+                  type="phone"
+                  placeholder="optional"
+                  required
                 />
               </InputContainer>
               <InputContainer>
-                <label htmlFor="ddd">Area</label>
+                <label htmlFor="ddd">area</label>
                 <input
                   name="ddd"
                   id="ddd"
@@ -162,22 +165,23 @@ const ContactForm = () => {
                 />
               </InputContainer>
               <InputContainerPhone>
-                <label htmlFor="phone">Phone</label>
+                <label htmlFor="phone">phone</label>
                 <input
                   name="phone"
                   id="phone"
                   value={contactData.phone}
                   onChange={handleChange}
-                  type="tel"
+                  type="phone"
                   placeholder="00000-0000"
                   required
                 />
               </InputContainerPhone>
             </PhoneDiv>
+
             <Options>
               <p>Category: </p>
               {Object.values(enums.Category)
-                .filter((categoryValue) => categoryValue !== enums.Category.ALL)
+                .filter((categoryValue) => categoryValue !== enums.Category.ALL) // Excluir 'ALL'
                 .map((categoryValue) => (
                   <Option key={categoryValue}>
                     <input
