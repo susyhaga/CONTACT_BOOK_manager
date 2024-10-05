@@ -2,14 +2,13 @@ import jsonServer from "json-server";
 import cors from "cors";
 import { join } from "path";
 
-const server = jsonServer.create()
-const router = jsonServer.router(join(__dirname, "db.json"))
-const middlewares = jsonServer.defaults()
+const server = jsonServer.create();
+const router = jsonServer.router(join(process.cwd(), "db.json")); // Use process.cwd() para garantir o caminho correto
+const middlewares = jsonServer.defaults();
 
-server.use(cors()); // Middleware CORS
+server.use(cors());
 server.use(middlewares);
 
-// Impedir deleção do id 1
 server.delete("/contacts/:id", (req, res) => {
   const { id } = req.params;
 
@@ -23,5 +22,5 @@ server.delete("/contacts/:id", (req, res) => {
 
 server.use(router);
 server.listen(4000, () => {
-  console.log("JSON Server is running");
+  console.log("JSON Server is running on port 4000");
 });

@@ -77,7 +77,7 @@ export const Alphabet = styled.div`
 
   ul {
     li {
-      margin-bottom: 11px;
+      margin-bottom: 12.5px;
     }
   }
 

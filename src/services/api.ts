@@ -1,17 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { ContactModel } from '../components/Contact'
 
-const baseUrl = 'http://192.168.0.57:3001/contacts'
+const baseUrl = 'https://jsonplaceholder.typicode.com';
+
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getContacts: builder.query<ContactModel[], void>({
-      query: () => '/contacts',
-      transformResponse: (response: ContactModel[]) =>
-        response.map(({ photo, ...rest }) => rest) // Remove a propriedade photo
-    }),
+  query: () => '/users',
+}),
     addContact: builder.mutation<ContactModel, Partial<ContactModel>>({
       query: (newContact) => ({
         url: '/contacts',
@@ -23,15 +22,15 @@ export const contactsApi = createApi({
       })
     }),
     deleteContact: builder.mutation<void, string>({
+      // Mudar para string
       query: (id) => ({
         url: `/contacts/${id}`,
         method: 'DELETE'
       })
     }),
-
     updateContact: builder.mutation<
       ContactModel,
-      { id: string; updatedContact: Partial<ContactModel> }
+      { id: string; updatedContact: Partial<ContactModel> } // Mudar para string
     >({
       query: ({ id, updatedContact }) => ({
         url: `/contacts/${id}`,
@@ -44,7 +43,7 @@ export const contactsApi = createApi({
 
 export const {
   useGetContactsQuery,
-  useAddContactMutation,
+  useAddContactMutation, // Use este nome
   useDeleteContactMutation,
   useUpdateContactMutation
 } = contactsApi
