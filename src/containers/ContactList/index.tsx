@@ -35,14 +35,14 @@ const ContactList = () => {
   }, [items]) // Salvar no localStorage sempre que os itens mudarem
 
   const handleEdit = (updatedContact: ContactModel) => {
-    dispatch(edit(updatedContact)) // Usar a action edit do slice
+    dispatch(edit(updatedContact))
   }
 
   const handleDelete = (id: string) => {
-    dispatch(remove(id)) // Usar a action remove do slice
+    dispatch(remove(id))
   }
 
-  if (!items.length) return <div>Loading...</div> // Alterar a mensagem para quando não houver contatos
+  if (!items.length) return <div>No contacts found.</div> // Mensagem quando não há contatos
 
   return (
     <ContainerList>

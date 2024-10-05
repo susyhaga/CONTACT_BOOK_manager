@@ -12,8 +12,8 @@ const generateContacts = (num: number): ContactModel[] => {
   for (let i = 1; i <= num; i++) {
     contacts.push({
       id: i.toString(),
-      name: `Contato ${i}`,
-      email: `contato${i}@example.com`,
+      name: ` Contact Name ${i}`,
+      email: `example${i}@example.com`,
       phone: `12345678${i.toString().padStart(2, '0')}`,
       ddd: ddds[i % ddds.length],
       category: categories[Math.floor(Math.random() * categories.length)]
