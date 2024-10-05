@@ -72,7 +72,7 @@ export const Alphabet = styled.div`
   z-index: 10;
   margin-right: 0;
   margin-left: -60px;
-  font-size: 14px;
+  font-size: 16px;
   overflow-y: hidden;
 
   ul {

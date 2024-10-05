@@ -3,13 +3,14 @@ import type { ContactModel } from '../components/Contact'
 
 const baseUrl = process.env.REACT_APP_API_URL || 'http://127.0.0.1:4000';
 
-
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getContacts: builder.query<ContactModel[], void>({
-      query: () => '/contacts'
+      query: () => '/contacts',
+      transformResponse: (response: ContactModel[]) =>
+        response.map(({ photo, ...rest }) => rest) // Remove a propriedade photo
     }),
     addContact: builder.mutation<ContactModel, Partial<ContactModel>>({
       query: (newContact) => ({
@@ -29,7 +30,7 @@ export const contactsApi = createApi({
     }),
     updateContact: builder.mutation<
       ContactModel,
-      { id: string; updatedContact: Partial<ContactModel> } // Mudar para string
+      { id: string; updatedContact: Partial<ContactModel> }
     >({
       query: ({ id, updatedContact }) => ({
         url: `/contacts/${id}`,
@@ -42,7 +43,7 @@ export const contactsApi = createApi({
 
 export const {
   useGetContactsQuery,
-  useAddContactMutation, // Use este nome
+  useAddContactMutation,
   useDeleteContactMutation,
   useUpdateContactMutation
 } = contactsApi
