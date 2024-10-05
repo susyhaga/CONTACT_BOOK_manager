@@ -18,11 +18,9 @@ const FilterCard = ({ name, isActive, category, count, onClick }: Props) => {
 
   const countContacts = (category: enums.Category) => {
     return contacts.items.filter((item) => {
-      const matchesCategory = category ? item.category === category : true
-      const matchesTerm = item.name
-        .toLowerCase()
-        .includes(filter.term?.toLowerCase() || '')
-      return matchesCategory && matchesTerm
+      const matchesCategory = category === enums.Category.ALL || item.category === category; // Atualizado para contar todos os contatos se a categoria for "ALL"
+      const matchesTerm = item.name.toLowerCase().includes(filter.term?.toLowerCase() || '');
+      return matchesCategory && matchesTerm;
     }).length
   }
 

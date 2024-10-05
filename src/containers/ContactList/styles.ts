@@ -77,7 +77,7 @@ export const Alphabet = styled.div`
 
   ul {
     li {
-      margin-bottom: 12.6px;
+      margin-bottom: 12.8px;
     }
   }
 
@@ -106,7 +106,7 @@ export const Alphabet = styled.div`
 `;
 
 export const AlphabetItem = styled.div`
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   cursor: pointer;
   color: black;

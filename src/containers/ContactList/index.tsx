@@ -1,10 +1,5 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import {
-  useGetContactsQuery,
-  useUpdateContactMutation,
-  useDeleteContactMutation
-} from '../../services/api'
+import { useSelector, useDispatch } from 'react-redux'
 import Contact from '../../components/Contact'
 import { MainContainer } from '../../styles'
 import { RootState } from '../../store'
@@ -12,18 +7,13 @@ import { ContactModel } from '../../components/Contact'
 import { saveContactsToLocalStorage } from '../../helpers/localStorage'
 import { Alphabet, ContainerList, ContactBook } from './styles'
 import addContactIcon from '../../icons/contact.png'
+import { edit, remove } from '../../store/slices/contact'
 
 const ContactList = () => {
-  const {
-    data: items = [],
-    isLoading,
-    isError,
-    refetch
-  } = useGetContactsQuery()
+  const dispatch = useDispatch()
 
-  const [updateContact] = useUpdateContactMutation()
-  const [deleteContact] = useDeleteContactMutation()
-
+  // Selecionar os contatos do estado Redux
+  const items = useSelector((state: RootState) => state.contacts.items)
   const { term, criterion } = useSelector((state: RootState) => state.filter)
 
   const filtrarContatos = () => {
@@ -41,34 +31,18 @@ const ContactList = () => {
   const contatosFiltrados = filtrarContatos()
 
   useEffect(() => {
-    if (!isLoading && !isError) {
-      saveContactsToLocalStorage(items)
-    }
-  }, [isLoading, isError, items])
+    saveContactsToLocalStorage(items)
+  }, [items]) // Salvar no localStorage sempre que os itens mudarem
 
-  useEffect(() => {
-    refetch()
-  }, [refetch])
-
-  const handleEdit = async (updatedContact: ContactModel) => {
-    await updateContact({
-      id: updatedContact.id.toString(),
-      updatedContact
-    }).unwrap()
-    refetch()
+  const handleEdit = (updatedContact: ContactModel) => {
+    dispatch(edit(updatedContact)) // Usar a action edit do slice
   }
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteContact(id).unwrap()
-      refetch()
-    } catch (error) {
-      console.error('Erro ao deletar o contato', error)
-    }
+  const handleDelete = (id: string) => {
+    dispatch(remove(id)) // Usar a action remove do slice
   }
 
-  if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>Error loading contacts</div>
+  if (!items.length) return <div>Loading...</div> // Alterar a mensagem para quando não houver contatos
 
   return (
     <ContainerList>

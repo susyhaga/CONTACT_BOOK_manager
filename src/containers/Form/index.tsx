@@ -1,7 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { Field, SaveButton } from '../../styles' // Adicione ReturnButton aqui
+import { useDispatch, useSelector } from 'react-redux'
+import { Field, SaveButton } from '../../styles'
 import {
   MainContainerForm,
   ContainerForm,
@@ -21,15 +21,17 @@ import {
 } from './styles'
 import * as enums from '../../enums/Contacts/enumsContacts'
 import { ContactModel } from '../../components/Contact'
-import { useAddContactMutation } from '../../services/api'
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { saveContactsToLocalStorage } from '../../helpers/localStorage'
 import { register } from '../../store/slices/contact'
 import AddContactIcon from '../../icons/adicionar-contato.png'
 
 const ContactForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [addContact, { isLoading, isError }] = useAddContactMutation()
+
+  // UseSelector com um valor padrão para evitar erro caso items não esteja definido
+  const contacts = useSelector((state: any) => state.contact?.items || [])
+
   const [contactData, setContactData] = useState<Omit<ContactModel, 'id'>>({
     name: '',
     email: '',
@@ -50,8 +52,8 @@ const ContactForm = () => {
   }
 
   const validatePhone = (ddd: string, phone: string): boolean => {
-    const dddRegex = /^\d{2}$/ // DDD deve ter 2 dígitos
-    const phoneRegex = /^\d{8,9}$/ // Telefone deve ter 8 ou 9 dígitos
+    const dddRegex = /^\d{2}$/
+    const phoneRegex = /^\d{8,9}$/
     return dddRegex.test(ddd) && phoneRegex.test(phone)
   }
 
@@ -66,34 +68,26 @@ const ContactForm = () => {
     })
   }
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-
     setErrorMessage(null)
     setSuccessMessage(null)
 
     if (validatePhone(contactData.ddd, contactData.phone)) {
       try {
         const sanitizedContactData = {
-          name: contactData.name ?? '',
-          email: contactData.email ?? '',
-          ddi: contactData.ddi ?? '',
-          ddd: contactData.ddd ?? '',
-          phone: contactData.phone ?? '',
-          category: contactData.category ?? enums.Category.ALL
+          ...contactData
         }
-        await addContact(sanitizedContactData).unwrap()
+
         dispatch(register(sanitizedContactData))
+        saveContactsToLocalStorage([...contacts, sanitizedContactData]) // Atualiza com o novo contato
 
         resetForm()
         setSuccessMessage('Contact registered successfully!')
-
-        // Redireciona para a lista de contatos após o registro
         navigate('/')
       } catch (err) {
-        const error = err as FetchBaseQueryError
         setErrorMessage('Failed to add contact.')
-        console.error('Error details:', error)
+        console.error('Error details:', err)
       }
     } else {
       setErrorMessage('Invalid phone number.')
@@ -101,7 +95,7 @@ const ContactForm = () => {
   }
 
   const handleReturn = () => {
-    navigate('/') // Redireciona para a página inicial
+    navigate('/')
   }
 
   return (
@@ -127,7 +121,7 @@ const ContactForm = () => {
               value={contactData.name}
               onChange={handleChange}
               type="text"
-              placeholder="contact Name"
+              placeholder="Contact Name"
               required
             />
             <TextInputs>Email</TextInputs>
@@ -138,7 +132,6 @@ const ContactForm = () => {
               type="email"
               placeholder="example@example.com"
             />
-
             <PhoneDiv>
               <TextInputs>
                 <label>
@@ -146,19 +139,18 @@ const ContactForm = () => {
                 </label>
               </TextInputs>
               <InputContainer>
-                <label htmlFor="ddi">country</label>
+                <label htmlFor="ddi">Country</label>
                 <input
                   name="ddi"
                   id="ddi"
                   value={contactData.ddi}
                   onChange={handleChange}
-                  type="phone"
-                  placeholder="optional"
-                  required
+                  type="tel"
+                  placeholder="Optional"
                 />
               </InputContainer>
               <InputContainer>
-                <label htmlFor="ddd">area</label>
+                <label htmlFor="ddd">Area</label>
                 <input
                   name="ddd"
                   id="ddd"
@@ -170,23 +162,22 @@ const ContactForm = () => {
                 />
               </InputContainer>
               <InputContainerPhone>
-                <label htmlFor="phone">phone</label>
+                <label htmlFor="phone">Phone</label>
                 <input
                   name="phone"
                   id="phone"
                   value={contactData.phone}
                   onChange={handleChange}
-                  type="phone"
+                  type="tel"
                   placeholder="00000-0000"
                   required
                 />
               </InputContainerPhone>
             </PhoneDiv>
-
             <Options>
               <p>Category: </p>
               {Object.values(enums.Category)
-                .filter((categoryValue) => categoryValue !== enums.Category.ALL) // Excluir 'ALL'
+                .filter((categoryValue) => categoryValue !== enums.Category.ALL)
                 .map((categoryValue) => (
                   <Option key={categoryValue}>
                     <input
@@ -201,12 +192,10 @@ const ContactForm = () => {
                   </Option>
                 ))}
             </Options>
-            <SaveButton type="submit" disabled={isLoading}>
+            <SaveButton type="submit">
               Register
             </SaveButton>
           </Form>
-          {isLoading && <p>Loading...</p>}
-          {isError && <p style={{ color: 'red' }}>An error occurred.</p>}
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
         </ContainerForm>
