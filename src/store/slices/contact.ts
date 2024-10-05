@@ -41,7 +41,7 @@ type ContactsState = {
 
 const initialState: ContactsState = {
   selectedCategory: null,
-  items: generateContacts(400),
+  items: generateContacts(400), // Inicialmente gera contatos fictícios
   additionalContacts: [],
   loading: false,
   error: null,
@@ -55,14 +55,15 @@ export const fetchContacts = createAsyncThunk<
   { rejectValue: string }
 >('contacts/fetchContacts', async (_, { rejectWithValue }) => {
   try {
+    // Faz uma requisição GET para o endpoint
     const response = await fetch('http://localhost:4000/contacts')
     if (!response.ok) {
-      throw new Error('Failed to load contacts.')
+      throw new Error('Failed to load contacts.') // Se não for bem-sucedido, lança um erro
     }
-    return await response.json()
+    return await response.json() // Retorna os contatos
   } catch (error) {
     return rejectWithValue(
-      error instanceof Error ? error.message : 'Unknown error.'
+      error instanceof Error ? error.message : 'Unknown error.' // Trata erros
     )
   }
 })
