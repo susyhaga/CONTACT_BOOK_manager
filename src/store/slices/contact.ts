@@ -5,7 +5,8 @@ import { contactsApi } from '../../services/api'
 
 type ContactsState = {
   selectedCategory: string | null
-  items: ContactModel[]
+  items: ContactModel[] // Contatos do db.json
+  additionalContacts: ContactModel[] // Contatos adicionais
   loading: boolean
   error: string | null
   searchQuery: string
@@ -14,11 +15,13 @@ type ContactsState = {
 const initialState: ContactsState = {
   selectedCategory: null,
   items: [],
+  additionalContacts: [], // Inicializa a lista de contatos adicionais
   loading: false,
   error: null,
   searchQuery: ''
 }
 
+// Ação para buscar contatos do db.json
 export const fetchContacts = createAsyncThunk<
   ContactModel[],
   void,
@@ -30,6 +33,23 @@ export const fetchContacts = createAsyncThunk<
       throw new Error('Failed to load contacts.')
     }
     return await response.json()
+  } catch (error) {
+    return rejectWithValue(
+      error instanceof Error ? error.message : 'Unknown error.'
+    )
+  }
+})
+
+// Ação para carregar contatos adicionais
+export const loadAdditionalContacts = createAsyncThunk<
+  ContactModel[],
+  void,
+  { rejectValue: string }
+>('contacts/loadAdditionalContacts', async (_, { rejectWithValue }) => {
+  try {
+    // Aqui você deve carregar seus 200 contatos de algum lugar
+    const additionalContacts: ContactModel[] = [/* seus 200 contatos aqui */] // Adiciona a anotação de tipo aqui
+    return additionalContacts
   } catch (error) {
     return rejectWithValue(
       error instanceof Error ? error.message : 'Unknown error.'
@@ -105,6 +125,9 @@ const contactsSlice = createSlice({
     loadContacts: (state, action: PayloadAction<ContactModel[]>) => {
       state.items = action.payload
     },
+    loadAdditionalContactsState: (state, action: PayloadAction<ContactModel[]>) => {
+      state.additionalContacts = action.payload // Adiciona os contatos adicionais ao estado
+    },
     search: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload
     }
@@ -126,6 +149,9 @@ const contactsSlice = createSlice({
         state.loading = false
         state.error = action.payload as string
       })
+      .addCase(loadAdditionalContacts.fulfilled, (state, action) => {
+        state.additionalContacts = action.payload; // Atualiza com os contatos adicionais
+      })
       .addMatcher(
         contactsApi.endpoints.addContact.matchFulfilled,
         (state, action) => {
@@ -141,7 +167,8 @@ export const {
   edit,
   remove,
   register,
-  loadContacts
+  loadContacts,
+  loadAdditionalContactsState // Exporta a nova ação
 } = contactsSlice.actions
 
 export default contactsSlice.reducer
