@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { ContactModel } from '../components/Contact'
 
-const baseUrl = 'http://localhost:4000/'
+const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',

@@ -75,7 +75,7 @@ const ContactList = () => {
       <MainContainer>
         <ContactBook>
           <img src={addContactIcon} alt="Add Contact" />
-          <h1>Contacts Book</h1>
+          <h1>Phone Book</h1>
         </ContactBook>
         <ul>
           {contatosFiltrados.map((t: ContactModel) => (
