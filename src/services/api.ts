@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { ContactModel } from '../components/Contact'
 
-const baseUrl = process.env.REACT_APP_API_URL || 'http://127.0.0.1:4000';
+const baseUrl = 'http://192.168.0.57:3001'
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
@@ -28,6 +28,7 @@ export const contactsApi = createApi({
         method: 'DELETE'
       })
     }),
+
     updateContact: builder.mutation<
       ContactModel,
       { id: string; updatedContact: Partial<ContactModel> }
