@@ -1,20 +1,11 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ContactModel } from '../../components/Contact'
 import { saveContactsToLocalStorage } from '../../helpers/localStorage'
-
-// Enum para categorias
-export enum Category {
-  BUSINESS = 'work',
-  FRIEND = 'friends',
-  FAMILY = 'family',
-  OTHERS = 'others',
-  ALL = 'all'
-}
+import * as enums from '../../enums/Contacts/enumsContacts'
 
 // Função para gerar contatos fictícios
 const generateContacts = (num: number): ContactModel[] => {
   const contacts: ContactModel[] = []
-  const categories = Object.values(Category)
   const ddds = ['11', '21', '31', '41', '51', '61', '71', '81', '91']
 
   for (let i = 1; i <= num; i++) {
@@ -24,7 +15,7 @@ const generateContacts = (num: number): ContactModel[] => {
       email: `contato${i}@example.com`,
       phone: `12345678${i.toString().padStart(2, '0')}`,
       ddd: ddds[i % ddds.length],
-      category: categories[i % categories.length]
+      category: enums.Category.ALL // Usando a categoria ALL por padrão
     })
   }
   return contacts
@@ -33,7 +24,6 @@ const generateContacts = (num: number): ContactModel[] => {
 type ContactsState = {
   selectedCategory: string | null
   items: ContactModel[]
-  additionalContacts: ContactModel[]
   loading: boolean
   error: string | null
   searchQuery: string
@@ -42,31 +32,10 @@ type ContactsState = {
 const initialState: ContactsState = {
   selectedCategory: null,
   items: generateContacts(400), // Inicialmente gera contatos fictícios
-  additionalContacts: [],
   loading: false,
   error: null,
   searchQuery: ''
 }
-
-// Ação para buscar contatos do db.json
-export const fetchContacts = createAsyncThunk<
-  ContactModel[],
-  void,
-  { rejectValue: string }
->('contacts/fetchContacts', async (_, { rejectWithValue }) => {
-  try {
-    // Faz uma requisição GET para o endpoint
-    const response = await fetch('http://localhost:4000/contacts')
-    if (!response.ok) {
-      throw new Error('Failed to load contacts.') // Se não for bem-sucedido, lança um erro
-    }
-    return await response.json() // Retorna os contatos
-  } catch (error) {
-    return rejectWithValue(
-      error instanceof Error ? error.message : 'Unknown error.' // Trata erros
-    )
-  }
-})
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -94,7 +63,7 @@ const contactsSlice = createSlice({
       }
     },
     register: (state, action: PayloadAction<Omit<ContactModel, 'id'>>) => {
-      const { name, email, phone } = action.payload
+      const { name, email, phone, category } = action.payload
       const contactExists = state.items.some(
         (contact) =>
           contact.name.toLowerCase() === name.toLowerCase() ||
@@ -113,7 +82,7 @@ const contactsSlice = createSlice({
           ? (Math.max(...state.items.map((c) => Number(c.id))) + 1).toString()
           : '1',
         ddd: '11',
-        category: action.payload.category
+        category: category || enums.Category.ALL
       }
 
       state.items.push(newContact)
@@ -125,26 +94,6 @@ const contactsSlice = createSlice({
     search: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload
     }
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchContacts.pending, (state) => {
-        state.loading = true
-        state.error = null
-      })
-      .addCase(
-        fetchContacts.fulfilled,
-        (state, action: PayloadAction<ContactModel[]>) => {
-          state.loading = false
-          state.items = action.payload
-        }
-      )
-      .addCase(fetchContacts.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.payload as string
-        // Se a API falhar, mantém os contatos gerados automaticamente
-        state.items = generateContacts(300) // Reverte para contatos gerados
-      })
   }
 })
 
