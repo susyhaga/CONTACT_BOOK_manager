@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Category as EnumCategory } from '../../enums/Contacts/enumsContacts'
 import { ContactModel } from '../../components/Contact'
 
-// Supondo que você tenha uma referência ao estado inicial dos contatos
+
 type FilterState = {
   term: string
   criterion: string
@@ -45,13 +45,14 @@ export const selectFilteredContacts = (
   state: { contacts: { items: ContactModel[] }; filter: FilterState }
 ) => {
   const { term, criterion, selectedCategory } = state.filter
-  const contacts = state.contacts.items // Acesse a lista de contatos a partir do estado
+  const contacts = state.contacts.items
 
   return contacts.filter(contact => {
-    const termMatch = term ? contact.name.toLowerCase().startsWith(term.toLowerCase()) : true
-    const criterionMatch = criterion === 'all' || contact.category === criterion
-    const categoryMatch = selectedCategory ? contact.category === selectedCategory : true // Adiciona verificação para categoria selecionada
-    return termMatch && criterionMatch && categoryMatch
+    const termMatch = term ? contact.name.toLowerCase().includes(term.toLowerCase()) : true
+    const criterionMatch = selectedCategory
+      ? contact.category === selectedCategory
+      : criterion === 'all' || contact.category === criterion;
+    return termMatch && criterionMatch
   })
 }
 
