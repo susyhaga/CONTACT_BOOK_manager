@@ -44,6 +44,7 @@ const ContactList = () => {
     dispatch(remove(id))
   }
 
+  // Verificar se há contatos filtrados
   if (!filtered.length) return <div>No contacts found.</div> // Mensagem quando não há contatos filtrados
 
   return (
@@ -64,7 +65,7 @@ const ContactList = () => {
                 ddd={t.ddd}
                 category={t.category}
                 onEdit={handleEdit}
-                onDelete={() => handleDelete(t.id.toString())}
+                onDelete={() => handleDelete(t.id)} // Passando apenas o id como string
               />
             </li>
           ))}

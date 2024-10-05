@@ -14,11 +14,12 @@ export type ContactModel = {
   phone: string
   category: enums.Category
 }
+
 const categories = Object.values(EnumCategory)
 
 type Props = ContactModel & {
   onEdit: (updatedContact: ContactModel) => void
-  onDelete: (id: string) => void // Certifique-se de que o onDelete seja passado
+  onDelete: (id: string) => void
 }
 
 const Contact = ({
@@ -75,7 +76,7 @@ const Contact = ({
   }, [editFields, id, onEdit])
 
   const handleDelete = useCallback(() => {
-    return onDelete(id)
+    onDelete(id)
   }, [id, onDelete])
 
   return (
