@@ -3,7 +3,6 @@ import { faker } from '@faker-js/faker'
 
 type Contact = {
   id: number
-  photo: string
   name: string
   email: string
   phone: string
@@ -21,9 +20,6 @@ for (let i = 1; i <= 800; i++) {
     email: faker.internet.email(),
     // Utilizando replaceSymbols para formatar o número
     phone: faker.helpers.replaceSymbols('## ## #####-####'),
-    photo: `https://randomuser.me/api/portraits/${
-      i % 2 === 0 ? 'men' : 'women'
-    }/${i % 100}.jpg`,
     category: faker.helpers.arrayElement(['family', 'friends', 'work', 'all']),
     classification: null, // Opcional
     priority: null // Opcional
