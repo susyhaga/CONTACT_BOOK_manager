@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
 export const Container = styled.div`
   display: flex;
   padding: 16px;
+  height: 100vh;
 
   @media (max-width: 480px) {
     flex-direction: column;

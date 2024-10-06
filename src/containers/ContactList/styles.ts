@@ -30,7 +30,7 @@ export const ContactBook = styled.div`
   z-index: 1;
   margin: 0;
   padding: 36px;
-  padding-bottom: 34px;
+  padding-bottom: 38px;
   width: calc(110% - 10px);
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@ export const ContactBook = styled.div`
     }
 
   h1 {
-    font-size: 62px;
+    font-size: 66px;
     font-weight: bold;
     color: black;
     text-align: left;
@@ -65,7 +65,7 @@ export const ContactBook = styled.div`
   }
 
   img {
-    width: 80px;
+    width: 100px;
 
     @media (max-width: 768px) {
       width: 50px;
@@ -91,12 +91,12 @@ export const Alphabet = styled.div`
   z-index: 10;
   margin-right: 0;
   margin-left: -48px;
-  font-size: 18px;
+  font-size: 19px;
   overflow-y: hidden;
 
   ul {
     li {
-      margin-bottom: 14px;
+      margin-bottom: 11px;
     }
   }
 

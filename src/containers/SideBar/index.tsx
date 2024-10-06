@@ -101,6 +101,7 @@ const SideBar = ({ showFilters }: Props) => {
             <option className="friend" value={enums.Category.FRIEND}>Friends</option>
             <option className="work" value={enums.Category.BUSINESS}>Work</option>
             <option className="others" value={enums.Category.OTHERS}>Others</option>
+
           </select>
         </FilterCategories>
       </S.Actions>

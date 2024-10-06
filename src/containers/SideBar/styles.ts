@@ -38,7 +38,7 @@ export const SideBar = styled.aside<SideBarProps>`
 `
 export const Title = styled.h2`
   font-size: 28px;
-  margin-top: 20px;
+  margin-top: 40px;
   padding-left: 40px;
   display: flex;
   flex-direction: column;
@@ -59,12 +59,12 @@ export const Title = styled.h2`
 
 export const SearchIcon = styled.img`
   position: absolute;
-  left: 70px;
+  left: 80px;
   top: 9%;
   transform: translateY(-50%);
   width: 36px;
   height: 36px;
-  margin-right: 16px;
+  margin-right: 12px;
 
   @media (max-width: 768px) {
     left: 50px;
@@ -214,7 +214,8 @@ export const SearchInput = styled.input`
 export const FilterCategories = styled.div`
 display: flex;
 flex-direction: row;
-margin-bottom: 20px;
+margin-top: 60px;
+margin-bottom: 0px;
 
 
   label {
@@ -270,12 +271,11 @@ margin-bottom: 20px;
 `
 //cards
 export const Filters = styled.div`
-  margin-top: 0px;
-  padding-top: 0px;
+  margin-top: 10px;
   display: flex; /* Certifique-se de que o flex esteja inicialmente configurado */
   flex-direction: column;
   border: 2px dotted ${varColors.grey};
-  gap: 12px;
+  gap: 20px;
   width: 100%;
   padding: 30px;
 
@@ -289,58 +289,56 @@ export const Filters = styled.div`
 
 
     @media (max-width: 768px) {
-    display: grid; /* Certifique-se que grid será aplicado */
-    grid-template-columns: 1fr 1fr; /* Define duas colunas */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     padding: 20px;
     margin-top: 20px;
     padding-bottom: 20px;
 
     h2 {
-      display: none; /* Oculta o título */
+      display: none;
     }
-    /* Faz o card 'All' ocupar as duas colunas */
+
     .all {
-      grid-column: span 2; /* Faz o card 'All' ocupar a linha inteira */
+      grid-column: span 2;
     }
   }
 
   @media (max-width: 480px) {
-    display: grid; /* Certifique-se que grid será aplicado */
-    grid-template-columns: 1fr 1fr 1fr; /* Define duas colunas */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
     margin-top: 0;
 
     h2 {
-      display: none; /* Oculta o título */
+      display: none;
     }
 
-    option{
-      /* Adiciona a primeira linha vazia e ajusta a segunda linha */
-    .all {
-      grid-column: 2; /* Faz o card 'All' ocupar a linha inteira */
-    }
+      option{
 
-    .family {
-      grid-column: 2; /* Coloca Family na segunda coluna */
-    }
+      .all {
+        grid-column: 2;
+      }
 
-    .friend {
-      grid-column: 2; /* Coloca Business na segunda coluna */
-      grid-row: 8; /* Coloca Business na segunda linha */
-    }
+      .family {
+        grid-column: 2;
+      }
 
-    .business {
-      grid-column: 1; /* Coloca Business na segunda coluna */
-      grid-row: 2; /* Coloca Business na segunda linha */
-    }
+      .friend {
+        grid-column: 2;
+        grid-row: 8;
+      }
 
-    .others {
-      grid-column: 1; /* Coloca Others na primeira coluna */
-      grid-row: 3; /* Coloca Others na terceira linha */
-    }
+      .business {
+        grid-column: 1;
+        grid-row: 2;
+      }
 
+      .others {
+        grid-column: 1;
+        grid-row: 3;
+      }
+    }
   }
-}
-
 `
 

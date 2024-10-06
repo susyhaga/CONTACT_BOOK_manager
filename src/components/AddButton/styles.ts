@@ -8,7 +8,7 @@ export const ButtonAdd = styled(Link)`
   background-color: ${varColors.title};
   color: #ffff;
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   right: 100px;
   font-family: Roboto;
   display: flex;
