@@ -106,6 +106,7 @@ margin-top: 10px;
     margin-top: 2px;
     width: 60px;
     height: 20px;
+    padding-bottom: 10px;
     margin-bottom: 40px;
     font-weight: bold;
     color: ${varColors.title};
