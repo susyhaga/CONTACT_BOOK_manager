@@ -10,22 +10,18 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
     overflow-x: hidden;
     overflow-y: hidden;
-    @media (max-width: 480px) {
-      overflow-y: scroll;
-
-  }
   }
 `
 
 export const Container = styled.div`
   display: flex;
-  gap: 16px;
   padding: 16px;
 
   @media (max-width: 480px) {
     flex-direction: column;
     padding: 8px;
-    overflow-y:scroll;
+    gap: 2px;
+    overflow-y:hidden;
   }
 `
 

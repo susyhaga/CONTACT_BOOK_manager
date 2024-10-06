@@ -13,6 +13,7 @@ export const Card = styled.div<Props>`
   width: 100%;
   height: 63px;
   padding: 10px;
+  margin-bottom: 20px ;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,21 +21,12 @@ export const Card = styled.div<Props>`
   cursor: pointer;
 
   @media (max-width: 480px) {
-    height: 50px;
-    padding: 8px;
+    height: 40px;
+    padding: 6px;
+    margin-top: 2px;
+    margin-bottom: 0px ;
   }
-`;
-
-export const Counter = styled.span`
-  font-weight: bold;
-  font-size: 24px;
-  display: block;
-  margin: 3px;
-
-  @media (max-width: 480px) {
-    font-size: 20px;
-  }
-`;
+`
 
 export const Label = styled.span`
   font-family: Roboto;
@@ -44,10 +36,28 @@ export const Label = styled.span`
   text-align: left;
   margin-right: 40px;
   margin-left: 3px;
-  margin-bottom: 6px;
 
   @media (max-width: 480px) {
     font-size: 12px;
-    margin-right: 20px;
+    font-weight: bold;
+    line-height: 10px;
+    text-align: left;
+    margin-right: 2px;
+    margin-left: 3px;
+    margin-bottom: 2px;
   }
 `;
+export const Counter = styled.span`
+  font-weight: bold;
+  font-size: 24px;
+  display: block;
+  margin: 3px;
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+    margin-right: 1px;
+
+  }
+`
+
+

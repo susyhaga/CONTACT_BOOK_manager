@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaSearch } from 'react-icons/fa'
 import * as S from './styles'
+import { FilterCategories } from './styles'
 import FilterCard from '../../components/FilterCard'
 import { RootState } from '../../store'
 import * as enums from '../../enums/Contacts/enumsContacts'
@@ -57,12 +58,12 @@ const SideBar = ({ showFilters }: Props) => {
     },
     {
       key: enums.Category.FRIEND,
-      name: 'Friend',
+      name: 'Friends',
       count: categoriesCount.friend,
     },
     {
       key: enums.Category.BUSINESS,
-      name: 'Business',
+      name: 'Work',
       count: categoriesCount.business,
     },
     {
@@ -74,34 +75,34 @@ const SideBar = ({ showFilters }: Props) => {
 
   return (
     <S.SideBar show={showFilters}>
-      <S.Title>Search Contacts</S.Title>
+      <S.Title><S.SearchIcon as={FaSearch} />Search Contacts</S.Title>
       <S.Actions>
         <S.FilterSection>
           <S.SearchContainer>
-            <S.SearchIcon as={FaSearch} />
+            <S.SearchIcon2 as={FaSearch} />
             <S.SearchInput
               type="text"
-              placeholder="Contact name"
+              placeholder="Search contact by name"
               value={term}
               onChange={handleSearchChange}
             />
           </S.SearchContainer>
         </S.FilterSection>
 
-        <S.FilterSection>
-          <label htmlFor="criterion">Category: </label>
+        <FilterCategories>
+          <label htmlFor="criterion">category: </label>
           <select
             id="criterion"
             value={criterion}
             onChange={handleChangeFilter}
           >
-            <option value={enums.Category.ALL}>All</option>
-            <option value={enums.Category.FAMILY}>Family</option>
-            <option value={enums.Category.FRIEND}>Friend</option>
-            <option value={enums.Category.BUSINESS}>Business</option>
-            <option value={enums.Category.OTHERS}>Others</option>
+            <option className="all" value={enums.Category.ALL}>All</option>
+            <option className="family" value={enums.Category.FAMILY}>Family</option>
+            <option className="friend" value={enums.Category.FRIEND}>Friends</option>
+            <option className="work" value={enums.Category.BUSINESS}>Work</option>
+            <option className="others" value={enums.Category.OTHERS}>Others</option>
           </select>
-        </S.FilterSection>
+        </FilterCategories>
       </S.Actions>
 
       <S.Filters>

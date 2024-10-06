@@ -3,22 +3,25 @@ import styled from 'styled-components';
 export const ContainerList = styled.div`
   display: flex;
   width: 100vw;
-  height: calc(120vh - 60px);
-  padding: 16px;
+  height: 100vh;
+  padding: 6px;
   padding-top: 0;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    padding: 8px;
+    padding-bottom: 2px;
     height: 80vh;
+    padding-top: 6px;
+    padding-left: 0px;
   }
 
   @media (max-width: 480px) {
     flex-direction: row;
-    padding: 0px;
+    padding-bottom: 2px;
+    padding-top: 6px;
     height: 80vh;
   }
-`;
+`
 
 export const ContactBook = styled.div`
   position: sticky;
@@ -27,7 +30,7 @@ export const ContactBook = styled.div`
   z-index: 1;
   margin: 0;
   padding: 36px;
-  padding-bottom: 20px;
+  padding-bottom: 34px;
   width: calc(110% - 10px);
   display: flex;
   align-items: center;
@@ -39,9 +42,25 @@ export const ContactBook = styled.div`
     color: black;
     text-align: left;
     margin-left: 20px;
+  }
+
+    @media (max-width: 480px) {
+      padding-right: 106px;
+      height: 42px;
+    }
+
+  h1 {
+    font-size: 62px;
+    font-weight: bold;
+    color: black;
+    text-align: left;
+    margin-left: 20px;
 
     @media (max-width: 480px) {
       font-size: 36px;
+      padding: 6px;
+      padding-bottom: 4px;
+      margin-left: 0px;
     }
   }
 
@@ -49,11 +68,11 @@ export const ContactBook = styled.div`
     width: 80px;
 
     @media (max-width: 768px) {
-      width: 40px
+      width: 50px;
     }
 
     @media (max-width: 480px) {
-      width: 40px;
+      width: 50px;
     }
   }
 `
@@ -61,7 +80,7 @@ export const ContactBook = styled.div`
 
 export const Alphabet = styled.div`
   position: sticky;
-  top: 64px;
+  top: 54px;
   height: calc(126vh - 20px);
   width: 48px;
   display: flex;
@@ -71,69 +90,49 @@ export const Alphabet = styled.div`
   padding: 20px;
   z-index: 10;
   margin-right: 0;
-  margin-left: -60px;
-  font-size: 17px;
+  margin-left: -48px;
+  font-size: 18px;
   overflow-y: hidden;
 
   ul {
     li {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
   }
 
   @media (max-width: 768px) {
-    top: 60px;
-    height: calc(150vh - 80px);
-    margin-left: -20px;
-  }
-
-  @media (max-width: 480px) {
-    top: 60px;
-    width: 48px;
-    height: calc(100vh - 28px);
-    margin-left: 0;
+    top: 64px;
+    width: 28px;
+    height: calc(100vh - 34px);
+    margin-right: 9px;
     top: 0;
     padding: 10px;
-    overflow-y: hidden;
-    font-size: 12px;
-
+    font-size: 9px;
+    margin-right: 0;
     ul {
       li {
-        margin-bottom: 6.2px;
+        margin-bottom: 5px;
       }
     }
   }
-`;
-
-export const AlphabetItem = styled.div`
-  font-size: 11px;
-  font-weight: bold;
-  cursor: pointer;
-  color: black;
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-
-  &:hover {
-    color: #007bff;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 8px;
-  }
 
   @media (max-width: 480px) {
-    font-size: 3px;
-    margin-bottom: 5px;
-    overflow-y: hidden;
+    top: 64px;
+    width: 28px;
+    height: calc(100vh - 34px);
+    margin-right: 9px;
+    top: 4;
+    padding: 10px;
+    font-size: 11px;
+    margin-right: 0;
+
+    ul {
+      li {
+        margin-bottom: 4.5px;
+      }
+    }
   }
-`;
+`
 
 export const ContactList = styled.div`
   display: flex;
@@ -141,21 +140,34 @@ export const ContactList = styled.div`
   flex-direction: column;
   gap: 6px;
   width: 100%;
-  max-height: calc(120vh - 100px);
-  overflow-y: auto;
+  height: 100vh;
+  overflow-y:auto;
 
   @media (max-width: 768px) {
-    gap: 6px;
-    padding: 0 16px;
-    margin-top: 8px;
-    max-height: calc(90vh - 40px);
+    margin-top: 0;
+    padding-top: 0;
+    max-height: calc(140vh - 76px);
+    overflow-y: auto;
+
+    ul {
+      li {
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
   }
 
   @media (max-width: 480px) {
-    gap: 6px;
-    padding: 0 6px;
     margin-top: 0;
+    padding-top: 0;
     max-height: calc(140vh - 76px);
     overflow-y: auto;
+
+    ul {
+      li {
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
   }
-`;
+`

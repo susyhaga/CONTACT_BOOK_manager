@@ -5,6 +5,7 @@ type SideBarProps = {
   show: boolean
 }
 
+
 export const SideBar = styled.aside<SideBarProps>`
   padding: 16px;
   background-image: url('/icons/form.jpg');
@@ -16,83 +17,107 @@ export const SideBar = styled.aside<SideBarProps>`
   display: ${(props) => (props.show ? 'block' : 'none')};
 
   @media (max-width: 768px) {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0;
     width: 100%;
-    padding: 12px;
     height: auto;
+    overflow-y: hidden;
   }
 
   @media (max-width: 480px) {
+    margin-top: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     width: 100%;
-    padding: 8px;
+    height: 27vh;
+    margin-bottom: 0px;
     border-radius: 4px;
-    overflow-y: scroll;
+    overflow-y: hidden;
   }
 `
 export const Title = styled.h2`
-  font-size: 26px;
+  font-size: 28px;
   margin-top: 20px;
+  padding-left: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   @media (max-width: 768px) {
-    font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding-bottom: 0;
+    font-size: 30px;
   }
 
   @media (max-width: 480px) {
-    font-size: 20px;
-  }
-`
+    display:none
 
-export const SearchContainer = styled.div`
-  position: relative;
-  width: 100%;
-  margin-bottom: 18px;
-
-  @media (max-width: 768px) {
-    margin-bottom: 12px;
   }
 `
 
 export const SearchIcon = styled.img`
   position: absolute;
-  left: 10px;
-  top: 50%;
+  left: 70px;
+  top: 9%;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+  width: 36px;
+  height: 36px;
+  margin-right: 16px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
+    left: 50px;
+    top: 8%;
     width: 18px;
     height: 18px;
   }
-`
-
-export const SearchInput = styled.input`
-  width: 100%;
-  height: 40px;
-  padding: 10px 40px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-
-  &:focus {
-    border-color: #1e90ff;
-    outline: none;
-  }
-
-  @media (max-width: 768px) {
-    height: 38px;
-  }
 
   @media (max-width: 480px) {
-    height: 36px;
-    padding: 10px 30px;
+    left: 50px;
+    top: 8%;
+    width: 32px;
+    height: 32px;
+  }
+`
+export const Actions = styled.div`
+  margin-top: 16px;
+
+    @media (max-width: 768px) {
+
+      height: 46px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    @media (max-width: 480px) {
+      height: 46px;
+      margin-top: 10px;
+      margin-bottom: 0px;
+    }
+
+  input {
+    width: 26vw;
+    height: 40px;
+    margin-bottom: 0px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 36px;
+      margin-top: 0px;
+    }
+
+    @media (max-width: 480px) {
+      width: 100%;
+      height: 36px;
+      margin-top: 0px;
+    }
   }
 `
 export const FilterSection = styled.div`
 display: flex;
 flex-direction: row;
-margin-top: 10px;
+margin-bottom: 10px;
 
   label {
     display: flex;
@@ -103,64 +128,219 @@ margin-top: 10px;
   }
 
   select{
-    margin-top: 2px;
+    margin-top: 3px;
     width: 60px;
-    height: 20px;
-    padding-bottom: 10px;
-    margin-bottom: 40px;
+    height: 18px;
     font-weight: bold;
     color: ${varColors.title};
     cursor: pointer;
   }
 
   @media (max-width: 768px) {
-    margin-bottom: 24px;
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 0px;
+    margin-bottom: 0px;
+
+
+  @media (max-width: 480px) {
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 0px;
+    margin-bottom: 10px;
+  }
+}
+`
+export const SearchContainer = styled.div`
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+
+`
+
+export const SearchIcon2 = styled.img`
+  display:none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    width: 30px;
+    position: absolute;
+    top: 6px;
+    padding-left: 10px;
   }
 
   @media (max-width: 480px) {
-    margin-bottom: 20px;
+    display: flex;
+    width: 30px;
+    position: absolute;
+    top: 10px;
+    padding-left: 10px;
   }
 `
-export const Filters = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 2px dotted ${varColors.grey}; /* Adiciona a borda ao container */
-  gap: 12px;
+
+export const SearchInput = styled.input`
   width: 100%;
-  padding:30px;
+  height: 40px;
+  padding:10px;
+  padding-left: 4px;
+  border: 1px solid #ccc;
 
-  h2{
-    display: flex;
-    flex-direction: row;
-    font-size: 20px;
-    gap: 170px
 
+  &:focus {
+    border-color: #1e90ff;
+    outline: none;
   }
 
   @media (max-width: 768px) {
-    margin-top: 16px;
-  }
-  @media (max-width: 7480px) {
-    margin-top: 16px;
-  }
-`
-
-export const Actions = styled.div`
-  margin-top: 16px;
-
-  input {
-    width: 26vw;
+    width: 100%;
+    padding-left: 36px;
+    margin-top: 10px;
     height: 40px;
-    margin-bottom: 0px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    padding-left: 36px;
+    padding-right: 0;
+    margin-top: 10px;
+    height: 36px;
+  }
+
+`
+export const FilterCategories = styled.div`
+display: flex;
+flex-direction: row;
+margin-bottom: 20px;
+
+
+  label {
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 10px;
+  }
+
+  select{
+    margin-top: 3px;
+    width: 60px;
+    height: 18px;
+    font-weight: bold;
+    color: ${varColors.title};
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 40px;
+
+  label {
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 10px;
+  }
+
+  select{
+    margin-top: 3px;
+    width: 60px;
+    height: 18px;
+    font-weight: bold;
+    color: ${varColors.title};
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
+`
+//cards
+export const Filters = styled.div`
+  margin-top: 0px;
+  padding-top: 0px;
+  display: flex; /* Certifique-se de que o flex esteja inicialmente configurado */
+  flex-direction: column;
+  border: 2px dotted ${varColors.grey};
+  gap: 12px;
+  width: 100%;
+  padding: 30px;
+
+    h2 {
+      padding-bottom:0;
+      display: flex;
+      flex-direction: row;
+      font-size: 20px;
+      gap: 170px;
+    }
+
 
     @media (max-width: 768px) {
-      width: 90%;
-    }
+    display: grid; /* Certifique-se que grid será aplicado */
+    grid-template-columns: 1fr 1fr; /* Define duas colunas */
+    padding: 20px;
+    margin-top: 20px;
+    padding-bottom: 20px;
 
-    @media (max-width: 480px) {
-      width: 100%;
-      height: 36px;
+    h2 {
+      display: none; /* Oculta o título */
+    }
+    /* Faz o card 'All' ocupar as duas colunas */
+    .all {
+      grid-column: span 2; /* Faz o card 'All' ocupar a linha inteira */
     }
   }
+
+  @media (max-width: 480px) {
+    display: grid; /* Certifique-se que grid será aplicado */
+    grid-template-columns: 1fr 1fr 1fr; /* Define duas colunas */
+    padding: 10px;
+    margin-top: 0;
+
+    h2 {
+      display: none; /* Oculta o título */
+    }
+
+    option{
+      /* Adiciona a primeira linha vazia e ajusta a segunda linha */
+    .all {
+      grid-column: 2; /* Faz o card 'All' ocupar a linha inteira */
+    }
+
+    .family {
+      grid-column: 2; /* Coloca Family na segunda coluna */
+    }
+
+    .friend {
+      grid-column: 2; /* Coloca Business na segunda coluna */
+      grid-row: 8; /* Coloca Business na segunda linha */
+    }
+
+    .business {
+      grid-column: 1; /* Coloca Business na segunda coluna */
+      grid-row: 2; /* Coloca Business na segunda linha */
+    }
+
+    .others {
+      grid-column: 1; /* Coloca Others na primeira coluna */
+      grid-row: 3; /* Coloca Others na terceira linha */
+    }
+
+  }
+}
+
 `
 

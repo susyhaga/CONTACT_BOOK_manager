@@ -15,9 +15,10 @@ export const MainContainerForm = styled.main`
   margin: 0 auto;
 
   @media (max-width: 480px) {
-    padding: 0 20px;
-    height: auto;
+    padding-top: 60px;
     overflow-y: scroll;
+    width: 96vw;
+    height: 98vh;
   }
 `
 
@@ -29,8 +30,9 @@ export const ParentContainer = styled.div`
   margin: 0 auto;
 
   @media (max-width: 480px) {
-    flex-direction: column;
     height: auto;
+    padding-top: 0px;
+    margin-top: 10px;
   }
 `
 
@@ -46,9 +48,10 @@ export const ContainerForm = styled.main`
   border: 3px solid ${varColors.grey};
 
   @media (max-width: 480px) {
-    width: 100%;
+    margin-right:0px;
+    width: 90vw;
     height: auto;
-    padding: 20px;
+    padding-top: 40px;
   }
 `
 
@@ -68,6 +71,7 @@ export const IconContainer = styled.div`
   @media (max-width: 480px) {
     width: 50px;
     height: 50px;
+    margin-top: 14px;
   }
 `
 
@@ -117,6 +121,7 @@ export const Form = styled.form`
 
 export const Field = styled.input`
   padding: 8px;
+  margin-top: 0px;
   background-color: #ffff;
   border-radius: 8px;
   font-weight: bold;
@@ -129,36 +134,49 @@ export const Field = styled.input`
   }
 `
 
+
 export const Asterisk = styled.span`
   color: ${varColors.red};
   margin-left: 4px;
 `
 
+
 export const PhoneDiv = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center; // Alinha os campos verticalmente no centro
+  justify-content: space-between; // Espaça os campos uniformemente
   gap: 10px;
   flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    flex-direction: row; // Garante que os campos fiquem lado a lado
+    gap: 8px; // Ajuste o espaçamento
+  }
 `
 
 export const TextInputs = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 0px;
   width: 100%;
   color: ${varColors.title};
 `
-
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 14%;
+  width: 12%;
   margin-top: 4px;
+
 
   label {
     font-size: 12px;
     font-weight: bold;
     color: #555;
-    margin-bottom: 4px;
+    margin-bottom: 1px;
+
+    @media (max-width: 480px) {
+      margin-bottom: 0px;
+    }
   }
 
   input {
@@ -167,55 +185,50 @@ export const InputContainer = styled.div`
     border: 1px solid #666666;
     font-size: 12px;
     font-weight: normal;
-    height: 50px;
+    height: 30px;
     box-sizing: border-box;
     color: #666666;
     margin-bottom: 16px;
+    margin-top: 0px;
   }
 
   @media (max-width: 480px) {
-    width: 100%;
+    width: 40px;
   }
 `
 
 export const InputContainerPhone = styled(InputContainer)`
-  width: 68%;
-  @media (max-width: 480px) {
-    width: 100%;
-  }
-`
+  flex: 1;
+  max-width: 80%;
+  `
 
 export const Options = styled.div`
   display: flex;
-  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
   margin-bottom: 16px;
   margin-top: 20px;
 
   p {
     margin-bottom: 16px;
+    width: 100%;
     margin-right: 8px;
+    margin-bottom: 4px;
     color: ${varColors.title};
   }
 
-  label {
-    text-transform: lowercase;
-    font-size: 14px;
-    margin-left: 2px;
-    margin-right: 16px;
-    width: 12px;
-    top: 376px;
-    left: 264px;
-  }
-
   @media (max-width: 480px) {
-    flex-direction: column;
+    flex-direction: row;
+    gap: 8px;
   }
 `
 
 export const Option = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   display: inline;
-  text-transform: capitalize;
+
+
 
   @media (max-width: 480px) {
     font-size: 12px;

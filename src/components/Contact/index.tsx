@@ -151,7 +151,6 @@ const Contact = ({
               {category}
             </S.Tag>
           </S.Title>
-
           <S.Name>
             <S.Icon>
               <FaUser />

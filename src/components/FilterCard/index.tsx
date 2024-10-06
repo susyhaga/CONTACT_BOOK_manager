@@ -29,7 +29,7 @@ const FilterCard = ({ name, isActive, category, count, onClick }: Props) => {
 
   return (
     <S.Card active={isActive} onClick={onClick}>
-      <S.Label>{name}</S.Label> {/* Categoria primeiro */}
+      <S.Label>{name}</S.Label>
       <S.Counter>{count || countContacts(category)}</S.Counter>
     </S.Card>
   )

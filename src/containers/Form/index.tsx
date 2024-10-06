@@ -142,19 +142,19 @@ const ContactForm = () => {
               </TextInputs>
               <InputContainer>
                 <label htmlFor="ddi">country</label>
-                <input
+                <Field
                   name="ddi"
                   id="ddi"
                   value={contactData.ddi}
                   onChange={handleChange}
                   type="phone"
-                  placeholder="optional"
+                  placeholder="00"
                   required
                 />
               </InputContainer>
               <InputContainer>
                 <label htmlFor="ddd">area</label>
-                <input
+                <Field
                   name="ddd"
                   id="ddd"
                   value={contactData.ddd}
@@ -166,7 +166,7 @@ const ContactForm = () => {
               </InputContainer>
               <InputContainerPhone>
                 <label htmlFor="phone">phone</label>
-                <input
+                <Field
                   name="phone"
                   id="phone"
                   value={contactData.phone}

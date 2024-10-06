@@ -18,10 +18,24 @@ export const ButtonAdd = styled(Link)`
   text-decoration: none;
   z-index: 1;
 
+  @media (max-width: 768px) {
+    position:absolute;
+    top: 180px;
+    height: 48px;
+    width: 90px;
+    border-radius: 10%;
+    font-size: 12px;
+    font-weight: bold;
+    right:36px;
+  }
   @media (max-width: 480px) {
-    height: 50px;
-    width: 160px;
-    font-size: 16px;
-    right:40px;
+    position:absolute;
+    top: 140px;
+    height: 38px;
+    width: 90px;
+    border-radius: 10%;
+    font-size: 12px;
+    font-weight: bold;
+    right:36px;
   }
 `
