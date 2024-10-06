@@ -1,51 +1,67 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import Contact from '../../components/Contact'
-import { MainContainer } from '../../styles'
-import { RootState } from '../../store'
-import { ContactModel } from '../../components/Contact'
-import { saveContactsToLocalStorage } from '../../helpers/localStorage'
-import { Alphabet, ContainerList, ContactBook } from './styles'
-import addContactIcon from '../../icons/contact.png'
-import { edit, remove } from '../../store/slices/contact'
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Contact from '../../components/Contact';
+import * as enums from '../../enums/Contacts/enumsContacts'
+import { MainContainer } from '../../styles';
+import { RootState } from '../../store';
+import { ContactModel } from '../../components/Contact';
+import { saveContactsToLocalStorage, getContactsFromLocalStorage, generateContacts } from '../../helpers/localStorage';
+import { Alphabet, ContainerList, ContactBook } from './styles';
+import addContactIcon from '../../icons/contact.png';
+import { edit, remove, register as addContact } from '../../store/slices/contact';
 
 const ContactList = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const items = useSelector((state: RootState) => state.contacts.items);
+  const { term, criterion } = useSelector((state: RootState) => state.filter);
 
-  // Selecionar os contatos do estado Redux
-  const items = useSelector((state: RootState) => state.contacts.items)
-  const { term, criterion } = useSelector((state: RootState) => state.filter)
+  // Carregar contatos do localStorage
+  useEffect(() => {
+    const storedContacts = getContactsFromLocalStorage();
+    if (storedContacts.length > 0) {
+      storedContacts.forEach(contact => {
+        const contactWithCorrectCategory: ContactModel = {
+          ...contact,
+          category: contact.category as enums.Category,  // Assegure que a categoria é do tipo esperado
+        };
+        dispatch(addContact(contactWithCorrectCategory));
+      });
+    } else {
+      // Se não há contatos, gere novos contatos
+      const newContacts = generateContacts(400); // Gere 400 contatos
+      newContacts.forEach(contact => dispatch(addContact(contact))); // Adiciona contatos gerados ao Redux
+      saveContactsToLocalStorage(newContacts); // Salva novos contatos no localStorage
+    }
+  }, [dispatch]);
 
-  // Função para filtrar contatos com base no termo e critério
   const filterContacts = () => {
     return items.filter((item: ContactModel) => {
       const termoMatch = term
         ? item.name.toLowerCase().startsWith(term.toLowerCase())
-        : true
+        : true;
 
-      const criterioMatch = criterion === 'all' || item.category === criterion
+      const criterioMatch = criterion === 'all' || item.category === criterion;
 
-      return termoMatch && criterioMatch
-    })
-  }
+      return termoMatch && criterioMatch;
+    });
+  };
 
-  const filtered = filterContacts()
+  const filtered = filterContacts();
 
-  // Salvar contatos no localStorage sempre que eles mudarem
+  // Salvar contatos no localStorage sempre que mudar
   useEffect(() => {
-    saveContactsToLocalStorage(items)
-  }, [items])
+    saveContactsToLocalStorage(items);
+  }, [items]);
 
   const handleEdit = (updatedContact: ContactModel) => {
-    dispatch(edit(updatedContact))
-  }
+    dispatch(edit(updatedContact));
+  };
 
   const handleDelete = (id: string) => {
-    dispatch(remove(id))
-  }
+    dispatch(remove(id));
+  };
 
-  // Verificar se há contatos filtrados
-  if (!filtered.length) return <div>No contacts found.</div> // Mensagem quando não há contatos filtrados
+  if (!filtered.length) return <div>No contacts found.</div>;
 
   return (
     <ContainerList>
@@ -65,7 +81,7 @@ const ContactList = () => {
                 ddd={t.ddd}
                 category={t.category}
                 onEdit={handleEdit}
-                onDelete={() => handleDelete(t.id)} // Passando apenas o id como string
+                onDelete={() => handleDelete(t.id)}
               />
             </li>
           ))}
@@ -74,12 +90,12 @@ const ContactList = () => {
       <Alphabet>
         <ul>
           {Array.from(Array(26)).map((_, index) => (
-            <li key={index}>{String.fromCharCode(65 + index)}</li> // A-Z
+            <li key={index}>{String.fromCharCode(65 + index)}</li>
           ))}
         </ul>
       </Alphabet>
     </ContainerList>
-  )
-}
+  );
+};
 
-export default ContactList
+export default ContactList;

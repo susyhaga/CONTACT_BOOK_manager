@@ -3,7 +3,6 @@ import { ContactModel } from '../../components/Contact'
 import { getContactsFromLocalStorage, saveContactsToLocalStorage } from '../../helpers/localStorage'
 import * as enums from '../../enums/Contacts/enumsContacts'
 
-// Função para gerar contatos fictícios
 const generateContacts = (num: number): ContactModel[] => {
   const contacts: ContactModel[] = []
   const ddds = ['11', '21', '31', '41', '51', '61', '71', '81', '91']
@@ -30,10 +29,9 @@ type ContactsState = {
   searchQuery: string
 }
 
-// Carregando contatos do localStorage ou gerando fictícios
 const initialState: ContactsState = {
   selectedCategory: null,
-  items: getContactsFromLocalStorage() || generateContacts(400), // Carrega contatos do localStorage ou gera fictícios
+  items: getContactsFromLocalStorage() || generateContacts(400),
   loading: false,
   error: null,
   searchQuery: ''

@@ -14,6 +14,7 @@ export type ContactModel = {
   phone: string
   category: enums.Category
 }
+export type Category = 'family' | 'friends' | 'work' | 'other';
 
 const categories = Object.values(EnumCategory)
 

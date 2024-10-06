@@ -3,5 +3,5 @@ export enum Category {
   FRIEND = 'friends',
   FAMILY = 'family',
   OTHERS = 'others',
-  ALL = 'all'
+  ALL = 'all',
 }
