@@ -59,7 +59,7 @@ export const ContactBook = styled.div`
     @media (max-width: 480px) {
       font-size: 36px;
       padding: 6px;
-      padding-bottom: 4px;
+      padding-bottom: 0px;
       margin-left: 0px;
     }
   }
@@ -103,7 +103,7 @@ export const Alphabet = styled.div`
   @media (max-width: 768px) {
     top: 64px;
     width: 28px;
-    height: calc(100vh - 34px);
+    height: calc(100vh - 24px);
     margin-right: 9px;
     top: 0;
     padding: 10px;
@@ -111,7 +111,7 @@ export const Alphabet = styled.div`
     margin-right: 0;
     ul {
       li {
-        margin-bottom: 5px;
+        margin-bottom: 6px;
       }
     }
   }
@@ -119,16 +119,15 @@ export const Alphabet = styled.div`
   @media (max-width: 480px) {
     top: 64px;
     width: 28px;
-    height: calc(100vh - 34px);
     margin-right: 9px;
     top: 4;
     padding: 10px;
-    font-size: 11px;
+    font-size: 10px;
     margin-right: 0;
 
     ul {
       li {
-        margin-bottom: 4.5px;
+        margin-bottom: 6px;
       }
     }
   }

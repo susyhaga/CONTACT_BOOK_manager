@@ -30,7 +30,7 @@ export const SideBar = styled.aside<SideBarProps>`
     padding-top: 0px;
     padding-bottom: 0px;
     width: 100%;
-    height: 27vh;
+    height: 33vh;
     margin-bottom: 0px;
     border-radius: 4px;
     overflow-y: hidden;
@@ -308,7 +308,8 @@ export const Filters = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
-    margin-top: 0;
+    margin-top: 10px;
+    gap: 6px;
 
     h2 {
       display: none;

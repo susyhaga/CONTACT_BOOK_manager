@@ -21,6 +21,7 @@ export const Container = styled.div`
   @media (max-width: 480px) {
     flex-direction: column;
     padding: 8px;
+    padding-bottom: 0px;
     gap: 2px;
     overflow-y:hidden;
   }

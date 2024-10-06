@@ -30,7 +30,7 @@ export const ButtonAdd = styled(Link)`
   }
   @media (max-width: 480px) {
     position:absolute;
-    top: 140px;
+    top: 145px;
     height: 38px;
     width: 90px;
     border-radius: 10%;
