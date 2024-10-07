@@ -109,10 +109,11 @@ export const ActionsSideBar = styled.div`
 export const CancelRemoveButton = styled(Button)`
   background-color: ${varColors.red};
   margin-top: 16px;
+  padding: 9px 14px;
 
   @media (max-width: 480px) {
     font-size: 12px;
-    padding: 8px;
+    padding: 9px 12px;
   }
 `
 

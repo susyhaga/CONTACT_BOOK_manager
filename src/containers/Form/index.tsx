@@ -1,7 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Field, SaveButton } from '../../styles'
+import { Field } from '../../styles'
 import {
   MainContainerForm,
   ContainerForm,
@@ -17,7 +17,8 @@ import {
   Icon,
   PhoneDiv,
   InputContainer,
-  InputContainerPhone
+  InputContainerPhone,
+  RegButton
 } from './styles'
 import * as enums from '../../enums/Contacts/enumsContacts'
 import { ContactModel } from '../../components/Contact'
@@ -196,9 +197,9 @@ const ContactForm = () => {
                   </Option>
                 ))}
             </Options>
-            <SaveButton type="submit">
-              Register
-            </SaveButton>
+            <RegButton type="submit">
+              Save Contact
+            </RegButton>
           </Form>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}

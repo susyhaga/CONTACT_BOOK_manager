@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import varColors from '../../styles/varColors';
+import { Button } from '../../styles';
 
 export const MainContainerForm = styled.main`
   display: block;
@@ -263,5 +264,14 @@ export const ReturnButton = styled.button`
     font-size: 20px;
     padding: 8px 12px;
     margin-right: 4px;
+  }
+`
+export const RegButton = styled(Button)`
+  background-color: ${varColors.green};
+  color: white;
+  font-size: 12px;
+    padding: 14px 20px;
+  &:hover {
+    color: black;
   }
 `

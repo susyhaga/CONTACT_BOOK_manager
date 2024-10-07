@@ -63,7 +63,7 @@ export const Button = styled.button`
   font-size: 12px;
   line-height: 14.06px;
   color: #fff;
-  padding: 8px 12px;
+  padding:8px 24px;
   border: none;
   cursor: pointer;
   background: #2f3640;
@@ -71,15 +71,16 @@ export const Button = styled.button`
   margin-right: 8px;
 
   @media (max-width: 480px) {
-    font-size: 10px;
-    padding: 6px 10px;
+    font-size: 12px;
+    padding: 9px 18px;
   }
 `
 
 export const SaveButton = styled(Button)`
   background-color: ${varColors.green};
   color: white;
-
+  font-size: 12px;
+    padding: 9px 18px;
   &:hover {
     color: black;
   }
