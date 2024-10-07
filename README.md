@@ -1,7 +1,7 @@
 # Getting Started with Create React App
 
 ## Description
-Even though hardly anyone uses a phone contact list anymore, I decided to build one to practice state-changing actions like adding new contacts, updating the user's contact list, and editing or deleting data. It's a great way to get hands-on experience with building systems that work with APIs or databases that need to be updated. For this project, I used React-TypeScript, Redux, JSON, and a few other tools. Since users can't access the local server where the API is hosted, I tweaked it and set up a mock database using initialState() with 400 pre-made contacts just for testing
+Even though hardly anyone uses a phone contact list anymore, I decided to build one to practice state-changing actions like adding new contacts, updating the user's contact list, and editing or deleting data. It's a great way to get hands-on experience with building systems that work with APIs or databases that need to be updated. For this project, I used React-TypeScript, Redux, JSON, and a few other tools. Since users can't access the local server where the API is hosted, I tweaked it and set up a mock database using initialState() with 400 pre-made contacts just for testing.
 
 ## Features
 * Add new tasks
